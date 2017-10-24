@@ -20,6 +20,13 @@ public class Config {
         configItems = parseProperties(properties);
     }
 
+    static public Config getInstance() {
+        if (instance == null) {
+            instance = new Config();
+        }
+        return instance;
+    }
+
     private static Map<String, String> parseProperties(Properties properties) {
         final Map<String, String> items = new HashMap<>();
 
@@ -43,20 +50,14 @@ public class Config {
         return properties;
     }
 
-    static public Config getInstance() {
-        if (instance == null) {
-            instance = new Config();
-        }
-        return instance;
-    }
 
     public String getValueAsString(String name) {
         return configItems.getOrDefault(name, null);
     }
 
     public int getValueAsInt(String name) {
-        final String stringValue=configItems.getOrDefault(name, "0");
-        final int intValue=Integer.parseInt(stringValue);
+        final String stringValue = configItems.getOrDefault(name, "0");
+        final int intValue = Integer.parseInt(stringValue);
         return intValue;
     }
 }
