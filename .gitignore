@@ -23,9 +23,9 @@ hs_err_pid*
 
 # JetBrains
 # User-specific stuff:
-**/.idea/workspace.xml
-**/.idea/tasks.xml
-**/.idea/dictionaries
+code/server/.idea/workspace.xml
+code/server/.idea/tasks.xml
+code/server/.idea/dictionaries
 
 # Sensitive or high-churn files:
 **/.idea/**/dataSources/
