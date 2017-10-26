@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
+import { WebsocketService } from './websocket.service';
 import { MudService } from './mud.service';
 
 @NgModule({
@@ -14,7 +15,7 @@ import { MudService } from './mud.service';
     BrowserModule,
     FormsModule
   ],
-  providers: [MudService],
+  providers: [WebsocketService, MudService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

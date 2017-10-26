@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
+import { WebsocketService } from './websocket.service';
 import { MudService } from './mud.service';
 
 @Component({
@@ -7,25 +8,18 @@ import { MudService } from './mud.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
-  messages = [];
-  connection;
-  message;
+export class AppComponent {
+  private message = 'Hello Hell';
 
-  constructor(private mudService: MudService) { }
-
-  sendMessage() {
-    this.mudService.sendMessage(this.message);
-    this.message = '';
-  }
-
-  ngOnInit() {
-    this.connection = this.mudService.getMessages().subscribe(message => {
-      this.messages.push(message);
+  constructor(private mudService: MudService) {
+    mudService.messages.subscribe(msg => {
+      console.log('Response from websocket: ' + msg);
     });
   }
 
-  ngOnDestroy() {
-    this.connection.unsubscribe();
+  sendMsg() {
+    console.log('new message from client to websocket: ', this.message);
+    this.mudService.messages.next(this.message);
+    this.message = '';
   }
 }

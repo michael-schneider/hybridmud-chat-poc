@@ -9,6 +9,7 @@ import java.util.Date;
 public class ControllerStateLogin implements ControllerState {
 
     public ControllerStateLogin(ClientController clientController) {
+        clientController.getCurrentUser().send("<message>Welcome to HybridMud</message>");
         clientController.getCurrentUser().send("<message>Please enter your name</message>");
     }
 

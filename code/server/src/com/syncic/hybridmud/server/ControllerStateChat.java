@@ -12,6 +12,7 @@ public class ControllerStateChat implements ControllerState {
     @Override
     public boolean receiveMessage(String message, ClientController clientController) {
         if (message.trim().equals("bye")) {
+            clientController.getCurrentUser().send("<message>Bye!</message>");
             return false;
         }
         clientController.getCurrentUser().send(MessageFormat.format("ChatState: [{0}]", message));
