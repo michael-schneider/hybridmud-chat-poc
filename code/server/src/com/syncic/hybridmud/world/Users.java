@@ -1,4 +1,4 @@
-package com.syncic.hybridmud.objects;
+package com.syncic.hybridmud.world;
 
 import java.util.*;
 
@@ -21,7 +21,7 @@ public class Users {
         return valid;
     }
 
-    public boolean isUsernameInUser(String username) {
+    public boolean isUsernameInUse(String username) {
         return getUserByUsername(username)!=null;
     }
     
