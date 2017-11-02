@@ -9,7 +9,7 @@
       <div [hidden]="!(loginForm.controls['username'].dirty && loginForm.controls['username'].hasError('required'))" class="ui error message">username is required</div>
     </div>
 
-    <div [hidden]="!(loginForm.dirty && loginForm.invalid)" class="ui error message">Form is invalid</div>
+    <div [hidden]="!loginForm.invalid" class="ui error message">Form is invalid</div>
 
     <button type="submit" class="ui button">Submit</button>
   

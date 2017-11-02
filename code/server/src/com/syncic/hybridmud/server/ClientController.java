@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public class ClientController extends Thread {
     private static final Logger LOGGER = Logger.getLogger(ClientController.class.getName());
     private final static String MAGIC_WEBSOCKET_KEY = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
@@ -56,8 +57,13 @@ public class ClientController extends Thread {
             LOGGER.log(Level.INFO, MessageFormat.format("Websocket Handshake for {0} successful", getCurrentUser().getNetId()));
             controllerState = new ControllerStateLogin(this);
             while (true) {
+                boolean continueSession = true;
                 final String line = reader.readLine();
-                final boolean continueSession = controllerState.receiveMessage(line.trim(), this);
+                if (line == null) {
+                    LOGGER.log(Level.INFO, MessageFormat.format("Client {0} nothing to read", getCurrentUser().getNetId()));
+                    break;
+                }
+                continueSession = controllerState.receiveMessage(line.trim(), this);
                 if (!continueSession) {
                     break;
                 }
@@ -83,22 +89,22 @@ public class ClientController extends Thread {
         try {
             do {
                 line = reader.readLine();
-                requestHeader += line+"\n";
+                requestHeader += line + "\n";
             } while (!"".equals(line));
 
             Matcher matcher = Pattern.compile("Sec-WebSocket-Key: (.*)").matcher(requestHeader);
             if (matcher.find()) {
-                String acceptKey=getKey(matcher.group(1));
-                String response = "HTTP/1.1 101 Switching Protocols\r\n+" +
-                        "Upgrade: websocket\r\n" +
+                String acceptKey = getKey(matcher.group(1));
+                String response = "HTTP/1.1 101 Switching Protocols\r\n" +
                         "Connection: Upgrade\r\n" +
-                        "Sec-WebSocket-Accept: "+acceptKey;
+                        "Upgrade: websocket\r\n" +
+                        "Sec-WebSocket-Accept: " + acceptKey +"\r\n";
                 currentUser.send(response);
             } else {
                 success = false;
             }
 
-        } catch (IOException|NoSuchAlgorithmException ex) {
+        } catch (IOException | NoSuchAlgorithmException ex) {
             LOGGER.log(Level.SEVERE, ex.toString(), ex);
             success = false;
         }

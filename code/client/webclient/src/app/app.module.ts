@@ -7,7 +7,6 @@ import { appRouting } from './app.routing';
 import { AppComponent } from './app.component';
 
 import { WebsocketService } from './websocket.service';
-import { MudService } from './mud.service';
 import { LoginComponent } from './login/login.component';
 import { ChatComponent } from './chat/chat.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -25,7 +24,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     ReactiveFormsModule,
     appRouting
   ],
-  providers: [WebsocketService, MudService],
+  providers: [WebsocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

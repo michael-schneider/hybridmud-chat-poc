@@ -1,39 +1,35 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import { Subject } from 'rxjs/Subject';
+import { Injectable, EventEmitter } from '@angular/core';
+import { environment } from '../environments/environment';
+
+const CHAT_URL = environment.wsUrl;
 
 @Injectable()
 export class WebsocketService {
-  constructor() { }
+  private webSocket: WebSocket;
+  private listener: EventEmitter<any> = new EventEmitter();
 
-  private subject: Subject<MessageEvent>;
-
-  public connect(url): Subject<MessageEvent> {
-    if (!this.subject) {
-      this.subject = this.create(url);
-      console.log('Successfully connected: ' + url);
-    }
-    return this.subject;
+  public constructor() {
+      this.webSocket = new WebSocket(CHAT_URL);
+      this.webSocket.onopen = event => {
+          this.listener.emit({'type': 'open', 'data': event});
+      };
+      this.webSocket.onclose = event => {
+          this.listener.emit({'type': 'close', 'data': event});
+      };
+      this.webSocket.onmessage = event => {
+          this.listener.emit({'type': 'message', 'data': JSON.parse(event.data)});
+      };
   }
 
-  private create(url): Subject<MessageEvent> {
-    const ws = new WebSocket(url);
+  public send(data: string) {
+      this.webSocket.send(data);
+  }
 
-    const observable = Observable.create(
-      (obs: Observer<MessageEvent>) => {
-        ws.onmessage = obs.next.bind(obs);
-        ws.onerror = obs.error.bind(obs);
-        ws.onclose = obs.complete.bind(obs);
-        return ws.close.bind(ws);
-      });
-    const observer = {
-      next: (data: Object) => {
-        if (ws.readyState === WebSocket.OPEN) {
-          ws.send(JSON.stringify(data));
-        }
-      }
-    };
-    return Subject.create(observer, observable);
+  public close() {
+      this.webSocket.close();
+  }
+
+  public getEventListener() {
+      return this.listener;
   }
 }
