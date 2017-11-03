@@ -26,11 +26,7 @@ export class LoginComponent implements OnInit {
   public ngOnInit() {
     this.websocketService.getEventListener().subscribe(event => {
       if (event.type === 'message') {
-        let data = event.data.content;
-        if (event.data.sender) {
-          data = event.data.sender + ': ' + data;
-        }
-        console.log(data);
+        console.log(event.data);
       }
       if (event.type === 'close') {
         console.log('/The socket connection has been closed');

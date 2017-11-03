@@ -1,4 +1,4 @@
-package com.syncic.hybridmud.world;
+package com.syncic.hybridmud.user;
 
 import com.syncic.hybridmud.server.Transmitter;
 
@@ -12,8 +12,12 @@ public class User {
     private UUID id = UUID.randomUUID();
     private String username;
     private Date logindate;
-    private Transmitter transmitter;
+    private final Transmitter transmitter;
+    private UserState userState = null;
 
+    public User(Transmitter transmitter) {
+        this.transmitter = transmitter;
+    }
 
     public UUID getId() {
         return id;
@@ -39,16 +43,20 @@ public class User {
         this.logindate = logindate;
     }
 
-    public void setTransmitter(Transmitter transmitter) {
-        this.transmitter = transmitter;
-    }
-
     public String getNetId() {
-       return transmitter.getNetId();
+        return transmitter.getNetId();
     }
 
     public void send(String message) {
         transmitter.send(message);
+    }
+
+    public void receive(String message) {
+
+    }
+
+    public void setUserState(UserState userState) {
+        this.userState = userState;
     }
 
     public void logout() {
