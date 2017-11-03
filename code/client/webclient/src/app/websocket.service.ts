@@ -17,7 +17,7 @@ export class WebsocketService {
           this.listener.emit({'type': 'close', 'data': event});
       };
       this.webSocket.onmessage = event => {
-          this.listener.emit({'type': 'message', 'data': JSON.parse(event.data)});
+          this.listener.emit({'type': 'message', 'data': event.data});
       };
   }
 

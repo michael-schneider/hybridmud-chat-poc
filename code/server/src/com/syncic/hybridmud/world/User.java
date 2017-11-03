@@ -1,14 +1,9 @@
 package com.syncic.hybridmud.world;
 
-import com.syncic.hybridmud.server.ClientController;
 import com.syncic.hybridmud.server.Transmitter;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.Socket;
 import java.util.Date;
 import java.util.UUID;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class User {

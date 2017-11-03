@@ -1,4 +1,6 @@
-package com.syncic.hybridmud.server;
+package com.syncic.hybridmud.server.websocket;
+
+import com.syncic.hybridmud.server.Transmitter;
 
 import java.io.IOException;
 import java.io.PrintWriter;

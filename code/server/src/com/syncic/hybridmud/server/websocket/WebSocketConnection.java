@@ -1,12 +1,15 @@
-package com.syncic.hybridmud.server;
+package com.syncic.hybridmud.server.websocket;
 
+import com.syncic.hybridmud.server.ControllerState;
+import com.syncic.hybridmud.server.ControllerStateChat;
+import com.syncic.hybridmud.server.ControllerStateLogin;
 import com.syncic.hybridmud.world.User;
 import com.syncic.hybridmud.world.Users;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.net.Socket;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -18,15 +21,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class ClientController extends Thread {
-    private static final Logger LOGGER = Logger.getLogger(ClientController.class.getName());
+public class WebSocketConnection extends Thread {
+    private static final Logger LOGGER = Logger.getLogger(WebSocketConnection.class.getName());
     private final static String MAGIC_WEBSOCKET_KEY = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 
     private ControllerState controllerState;
     private final User currentUser;
     private final Socket socket;
 
-    ClientController(Socket socket) {
+    WebSocketConnection(Socket socket) {
         this.socket = socket;
         this.currentUser = new User();
         currentUser.setTransmitter(new WebSocketTransmitter(socket));
@@ -43,10 +46,10 @@ public class ClientController extends Thread {
     public void run() {
         LOGGER.log(Level.INFO, MessageFormat.format("Client {0} connected", getCurrentUser().getNetId()));
 
-        BufferedReader reader = null;
+        InputStream reader = null;
 
-        try {
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+ /*       try {
+            reader = socket.getInputStream();
 
             if (!wsHandshake(reader)) {
                 LOGGER.log(Level.SEVERE, MessageFormat.format("Websocket Handshake for {0} failed", getCurrentUser().getNetId()));
@@ -79,13 +82,15 @@ public class ClientController extends Thread {
             } catch (IOException ex) {
                 LOGGER.log(Level.SEVERE, ex.toString(), ex);
             }
-        }
+        }*/
     }
 
-    private boolean wsHandshake(BufferedReader reader) {
+    private boolean wsHandshake(InputStream inputStream) {
         boolean success = true;
         String requestHeader = "";
         String line;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
         try {
             do {
                 line = reader.readLine();
