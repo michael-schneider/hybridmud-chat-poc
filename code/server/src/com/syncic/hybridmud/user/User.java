@@ -17,6 +17,7 @@ public class User {
 
     public User(Transmitter transmitter) {
         this.transmitter = transmitter;
+        userState = new UserStateLogin(this);
     }
 
     public UUID getId() {
@@ -52,7 +53,7 @@ public class User {
     }
 
     public void receive(String message) {
-
+        userState.receiveMessage(this, message);
     }
 
     public void setUserState(UserState userState) {

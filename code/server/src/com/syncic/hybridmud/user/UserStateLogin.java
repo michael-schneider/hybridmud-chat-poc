@@ -13,7 +13,7 @@ public class UserStateLogin implements UserState {
     }
 
     @Override
-    public boolean receiveMessage(String message, User user) {
+    public boolean receiveMessage(User user, String message) {
         String username = message.trim();
         if (!Users.isValidUsername(username)) {
             user.send("<error>Username is not valid. Please reenter</error>");
@@ -23,7 +23,7 @@ public class UserStateLogin implements UserState {
             user.setLogindate(new Date());
             user.setUsername(username);
 
-            user.send(MessageFormat.format("<message>Welcome <user id=\"{0}\">{1}</user></message>", user.getId(), user.getUsername()));
+            user.send(MessageFormat.format("<message type=\"success\">Welcome <user id=\"{0}\">{1}</user></message>", user.getId(), user.getUsername()));
             user.setUserState(new UserStateChat(user));
         }
         return true;

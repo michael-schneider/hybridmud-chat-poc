@@ -1,0 +1,17 @@
+<div class="ui raised segment">
+  <h2 class="ui header">Demo Form: with validations (explicit)</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" class="ui form" [class.error]="!loginForm.valid && loginForm.touched">
+
+    <div class="field" [class.error]="!loginForm.controls['username'].valid && loginForm.controls['username'].touched">
+      <label for="usernameInput">username</label>
+      <input type="text" id="usernameInput" placeholder="username" [formControl]="loginForm.controls['username']">
+      <div [hidden]="!(loginForm.controls['username'].dirty && loginForm.controls['username'].invalid)" class="ui error message">username is invalid</div>
+      <div [hidden]="!(loginForm.controls['username'].dirty && loginForm.controls['username'].hasError('required'))" class="ui error message">username is required</div>
+    </div>
+
+    <div [hidden]="!loginForm.invalid" class="ui error message">Form is invalid</div>
+
+    <button type="submit" class="ui button">Submit</button>
+  
+  </form>
+</div>

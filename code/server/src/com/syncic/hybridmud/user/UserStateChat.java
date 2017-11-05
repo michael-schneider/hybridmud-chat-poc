@@ -12,7 +12,7 @@ public class UserStateChat implements UserState {
     }
 
     @Override
-    public boolean receiveMessage(String message, User user) {
+    public boolean receiveMessage(User user, String message) {
         if (message.trim().equals("bye")) {
             user.send("<message>Bye!</message>");
             return false;
