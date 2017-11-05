@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { WebsocketService } from '../websocket.service';
+import { Subscription } from 'rxjs/Subscription';
 import {
   FormBuilder,
   FormGroup,
@@ -14,27 +15,27 @@ import {
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+export class LoginComponent implements OnInit, OnDestroy {
+  private readonly loginForm: FormGroup;
+  private readonly websocketSubscription: Subscription;
 
   constructor(private websocketService: WebsocketService, formBuilder: FormBuilder, private router: Router) {
     this.loginForm = formBuilder.group({
       'username': ['', Validators.required]
     });
+    this.websocketSubscription = websocketService.getWebsocketObservable().subscribe(message => this.receiveMessage(message));
   }
 
   public ngOnInit() {
-    this.websocketService.getEventListener().subscribe(event => {
-      if (event.type === 'message') {
-        console.log(event.data);
-      }
-      if (event.type === 'close') {
-        console.log('/The socket connection has been closed');
-      }
-      if (event.type === 'open') {
-        console.log('/The socket connection has been established');
-      }
-    });
+  }
+
+  private receiveMessage(message: String) {
+    console.log('Got a message from websocket:');
+    console.log(message);
+  }
+
+  public ngOnDestroy() {
+    this.websocketSubscription.unsubscribe();
   }
 
   onSubmit({ username }: { username: string }): void {

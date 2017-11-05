@@ -1,35 +1,27 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
 import { environment } from '../environments/environment';
 
 const CHAT_URL = environment.wsUrl;
 
 @Injectable()
 export class WebsocketService {
-  private webSocket: WebSocket;
-  private listener: EventEmitter<any> = new EventEmitter();
+    private readonly subject: Subject<any>;
 
-  public constructor() {
-      this.webSocket = new WebSocket(CHAT_URL);
-      this.webSocket.onopen = event => {
-          this.listener.emit({'type': 'open', 'data': event});
-      };
-      this.webSocket.onclose = event => {
-          this.listener.emit({'type': 'close', 'data': event});
-      };
-      this.webSocket.onmessage = event => {
-          this.listener.emit({'type': 'message', 'data': event.data});
-      };
-  }
+    public constructor() {
+        this.subject = new WebSocketSubject(CHAT_URL);
+    }
 
-  public send(data: string) {
-      this.webSocket.send(data);
-  }
+    public send(data: string) {
+        this.subject.next(data);
+    }
 
-  public close() {
-      this.webSocket.close();
-  }
+    public close() {
+        this.subject.complete();
+    }
 
-  public getEventListener() {
-      return this.listener;
-  }
+    public getWebsocketObservable() {
+        return this.subject.asObservable();
+    }
 }

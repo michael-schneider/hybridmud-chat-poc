@@ -18,7 +18,8 @@ public class WebSocketTransmitter implements Transmitter {
 
     @Override
     public void send(String message) {
-        webSocket.send(message);
+        // We have to JSONIFY it!!! RXJS wants us to!
+        webSocket.send("\""+message.replace("\"","\\\"")+"\"");
     }
 
     @Override

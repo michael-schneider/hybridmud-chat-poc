@@ -26,7 +26,7 @@ public class MudWebSocketServer extends WebSocketServer {
 
         LOGGER.log(Level.INFO, MessageFormat.format("Connection established for {0}", user.getNetId()));
 
-        broadcast("new connection: " + handshake.getResourceDescriptor());
+        //broadcast("new connection: " + handshake.getResourceDescriptor());
         System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + " entered the room!");
     }
 
