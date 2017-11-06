@@ -1,17 +1,35 @@
-<div class="ui raised segment">
-  <h2 class="ui header">Demo Form: with validations (explicit)</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" class="ui form" [class.error]="!loginForm.valid && loginForm.touched">
+<div class="container">
+  <div class="jumbotron">
+    <h1>Hybridmud Chat Proof-Of-Concept</h1>
+    <p class="lead">Is it possible to have one system serving at least both, browser and telnet client? We will find out with this proof-of-concept.
+    </p>
+  </div>
 
-    <div class="field" [class.error]="!loginForm.controls['username'].valid && loginForm.controls['username'].touched">
-      <label for="usernameInput">username</label>
-      <input type="text" id="usernameInput" placeholder="username" [formControl]="loginForm.controls['username']">
-      <div [hidden]="!(loginForm.controls['username'].dirty && loginForm.controls['username'].invalid)" class="ui error message">username is invalid</div>
-      <div [hidden]="!(loginForm.controls['username'].dirty && loginForm.controls['username'].hasError('required'))" class="ui error message">username is required</div>
+  <div class="server-display">
+    <div class="card">
+      <div class="card-header">
+        Server Messages {{a}}
+      </div>
+      <div id="abc" class="card-body server-messages">
+        <ul class="card-text message-list">
+          <li *ngFor="let serverMessage of serverMessages">
+            {{ serverMessage }}
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
 
-    <div [hidden]="!loginForm.invalid" class="ui error message">Form is invalid</div>
-
-    <button type="submit" class="ui button">Submit</button>
-  
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+    <div class="form-group">
+      <label for="username">Enter a username:</label>
+      <input type="text" [ngClass]="{'is-invalid': loginForm.controls['username'].invalid}" class="form-control" id="username"
+        placeholder="Enter username" [formControl]="loginForm.controls['username']">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
   </form>
+
+  <div class="alert alert-danger" role="alert" *ngIf="loginForm.controls['username'].dirty && loginForm.controls['username'].hasError('required')">
+    A username is required. Please enter one.
+  </div>
 </div>

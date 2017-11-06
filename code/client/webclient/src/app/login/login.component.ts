@@ -15,9 +15,10 @@ import {
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy {  
   private readonly loginForm: FormGroup;
   private readonly websocketSubscription: Subscription;
+  private serverMessages: string[] = [];
 
   constructor(private websocketService: WebsocketService, formBuilder: FormBuilder, private router: Router) {
     this.loginForm = formBuilder.group({
@@ -29,10 +30,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   public ngOnInit() {
   }
 
-  private receiveMessage(message: String) {
+  private receiveMessage(message: string) {
     console.log('Got a message from websocket:');
     console.log(message);
-  }
+    this.serverMessages.push(message);
+   }
 
   public ngOnDestroy() {
     this.websocketSubscription.unsubscribe();

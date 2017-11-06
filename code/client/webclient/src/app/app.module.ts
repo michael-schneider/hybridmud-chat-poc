@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { appRouting } from './app.routing';
 
 import { WebsocketService } from './websocket.service';
+import { MudxmlService } from './mudxml.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -24,7 +25,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     ReactiveFormsModule,
     appRouting
   ],
-  providers: [WebsocketService],
+  providers: [WebsocketService, MudxmlService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
