@@ -16,9 +16,9 @@ public class UserStateLogin implements UserState {
     public boolean receiveMessage(User user, String message) {
         String username = message.trim();
         if (!Users.isValidUsername(username)) {
-            user.send("<error>Username is not valid. Please reenter</error>");
+            user.send("<message type=\"error\">Username is not valid. Please reenter.</message>");
         } else if (Users.getInstance().isUsernameInUse(username)) {
-            user.send("<error>Username is in use, please use a different one.</error>");
+            user.send("<message type=\"error\">Username is in use, please use a different one.</message>");
         }else {
             user.setLogindate(new Date());
             user.setUsername(username);
