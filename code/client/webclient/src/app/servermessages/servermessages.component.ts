@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, QueryList, ElementRef, ViewChildren, AfterViewInit, OnDestroy } from '@angular/core';
-import { WebsocketService } from '../websocket.service';
+import { MudxmlService } from '../mudxml.service';
+import { MudMessage, MessageType } from '../mudmessage';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -11,10 +12,10 @@ export class ServermessagesComponent implements OnInit, OnDestroy, AfterViewInit
   @ViewChildren('messages') messages: QueryList<any>;
   @ViewChild('content') content: ElementRef;
   private serverMessages: string[] = [];
-  private readonly websocketSubscription: Subscription;
+  private readonly mudxmlSubscription: Subscription;
 
-  constructor(private websocketService: WebsocketService) {
-    this.websocketSubscription = websocketService.getWebsocketObservable().subscribe(message => this.receiveMessage(message));
+  constructor(private mudxmlService: MudxmlService) {
+    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().subscribe(message => this.receiveMessage(message));
   }
 
   ngOnInit() {
@@ -29,12 +30,13 @@ export class ServermessagesComponent implements OnInit, OnDestroy, AfterViewInit
       this.content.nativeElement.scrollTop = this.content.nativeElement.scrollHeight;
     } catch (err) { }
   }
-  private receiveMessage(message: string) {
-    this.serverMessages.push(message);
+
+  private receiveMessage(message: MudMessage) {
+    this.serverMessages.push(message.message);
   }
 
   public ngOnDestroy() {
-    this.websocketSubscription.unsubscribe();
+    this.mudxmlSubscription.unsubscribe();
   }
 
 }
