@@ -11,13 +11,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { ChatComponent } from './chat/chat.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ServermessagesComponent } from './servermessages/servermessages.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ChatComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ServermessagesComponent
   ],
   imports: [
     BrowserModule,
