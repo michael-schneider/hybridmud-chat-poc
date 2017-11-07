@@ -10,12 +10,10 @@
       <div class="card-header">
         Server Messages {{a}}
       </div>
-      <div id="abc" class="card-body server-messages">
-        <ul class="card-text message-list">
-          <li *ngFor="let serverMessage of serverMessages">
-            {{ serverMessage }}
-          </li>
-        </ul>
+      <div #content id="abc" class="card-body server-messages">
+        <div #messages class="card-text message-list" *ngFor="let serverMessage of serverMessages">
+          {{ serverMessage }}
+        </div>
       </div>
     </div>
   </div>
