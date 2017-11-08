@@ -10,7 +10,8 @@ export class MudxmlService implements OnDestroy {
   private readonly subject: Subject<MudMessage> = new Subject();
 
   constructor(private websocketService: WebsocketService) {
-    this.websocketSubscription = websocketService.getWebsocketObservable().subscribe(message => this.receiveMessage(message));
+    this.websocketSubscription = websocketService.getWebsocketObservable().subscribe(message => this.receiveMessage(message),
+      error => this.subject.error(error));
   }
 
   private receiveMessage(message: string) {
