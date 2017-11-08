@@ -17,12 +17,14 @@ export class MudxmlService implements OnDestroy {
   private receiveMessage(message: string) {
     let messageType: MessageType;
     let messageContent: string;
+    let messageSubsystem: string;
 
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(message, 'text/xml');
 
     if (xmlDoc.documentElement.tagName === 'message') {
       const type = xmlDoc.documentElement.getAttribute('type');
+      messageSubsystem = xmlDoc.documentElement.getAttribute('subsystem');
       if (type === null || type === 'information') {
         messageType = MessageType.INFORMATION;
       } else if (type === 'success') {
@@ -35,6 +37,7 @@ export class MudxmlService implements OnDestroy {
 
     const mudMessage: MudMessage = {
       type: messageType,
+      subsystem: messageSubsystem,
       message: messageContent
     };
     this.subject.next(mudMessage);

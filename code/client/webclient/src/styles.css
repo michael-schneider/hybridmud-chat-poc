@@ -7,20 +7,6 @@ form {
     padding-bottom: 20px;
 }
 
-.server-display {
-    padding-bottom: 20px;
-}
-
-.server-messages {
-    height: 10em;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-.message-list {
-    list-style-type: none;
-}
-
 footer {
     padding-top: 10px;
     padding-bottom: 10px;

@@ -40,8 +40,8 @@ public class MudWebSocketServer extends WebSocketServer {
     @Override
     public void onMessage(WebSocket conn, String message) {
         LOGGER.log(Level.INFO, MessageFormat.format("Message from {0}: {1}", conn, message));
-        Users.getInstance().getUserByWebSocket(conn).send("Received: " + message.toUpperCase());
-        // Send to user
+        //Users.getInstance().getUserByWebSocket(conn).send("Received: " + message.toUpperCase());
+        Users.getInstance().getUserByWebSocket(conn).receive(message);
     }
 
     @Override
