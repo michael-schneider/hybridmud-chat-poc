@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { WebsocketService } from '../websocket.service';
+import { MudxmlService } from '../mudxml.service';
 import { Subscription } from 'rxjs/Subscription';
 import {
   FormBuilder,
@@ -8,6 +8,7 @@ import {
   Validators,
   AbstractControl
 } from '@angular/forms';
+import { MudMessage } from '../mudmessage';
 
 @Component({
   selector: 'app-login',
@@ -18,25 +19,26 @@ import {
 export class LoginComponent implements OnInit, OnDestroy {
 
   private readonly loginForm: FormGroup;
-  private readonly websocketSubscription: Subscription;
+  private readonly mudxmlSubscription: Subscription;
 
-  constructor(private websocketService: WebsocketService, formBuilder: FormBuilder, private router: Router) {
+  constructor(private websocketService: MudxmlService, formBuilder: FormBuilder, private router: Router) {
     this.loginForm = formBuilder.group({
       'username': ['', Validators.required]
     });
-    this.websocketSubscription = websocketService.getWebsocketObservable().subscribe(message => this.receiveMessage(message));
+    this.mudxmlSubscription = websocketService.getMudxmlObservable().subscribe(message => this.receiveMessage(message));
   }
 
   public ngOnInit() {
   }
 
-  private receiveMessage(message: string) {
-    console.log('Got a message from websocket:');
-    console.log(message);
+  private receiveMessage(message: MudMessage) {
+    // console.log('Got a message from websocket:');
+    // console.log(message);
+
   }
 
   public ngOnDestroy() {
-    this.websocketSubscription.unsubscribe();
+    this.mudxmlSubscription.unsubscribe();
   }
 
   onSubmit({ username }: { username: string }): void {
