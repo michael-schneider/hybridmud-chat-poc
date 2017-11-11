@@ -14,25 +14,26 @@ export class MudxmlService implements OnDestroy {
   }
 
   private receiveMessage(message: string) {
+    console.log("Server says: " + message);
     let messageType: MessageType;
     let messageContent: string;
-
+    
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(message, 'text/xml');
 
-    if (xmlDoc.documentElement.tagName === 'message') {
-      const type = xmlDoc.documentElement.getAttribute('type');
-      if (type === null || type === 'information') {
-        messageType = MessageType.INFORMATION;
-      } else if (type === 'success') {
-        messageType = MessageType.SUCCESS;
-      } else if (type === 'error') {
-        messageType = MessageType.ERROR;
-      }
-      messageContent = xmlDoc.documentElement.textContent;
-    }
+    const messageDomain = xmlDoc.documentElement.tagName.toLowerCase();
+    const xmlTypeAttribute = xmlDoc.documentElement.getAttribute('type');
 
+    if (xmlTypeAttribute === 'success') {
+      messageType = MessageType.SUCCESS;
+    } else if (xmlTypeAttribute === 'error') {
+      messageType = MessageType.ERROR;
+    } else {
+      messageType = MessageType.INFORMATION;      
+    }
+    messageContent = xmlDoc.documentElement.textContent;
     const mudMessage: MudMessage = {
+      domain: messageDomain,
       type: messageType,
       message: messageContent
     };

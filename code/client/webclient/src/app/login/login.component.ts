@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { WebsocketService } from '../websocket.service';
+import { MudMessage, MessageType } from '../shared/mudmessage';
+import { MudxmlService } from '../shared/mudxml.service';
 import { Subscription } from 'rxjs/Subscription';
 import {
   FormBuilder,
@@ -8,6 +9,7 @@ import {
   Validators,
   AbstractControl
 } from '@angular/forms';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-login',
@@ -18,33 +20,43 @@ import {
 export class LoginComponent implements OnInit, OnDestroy {
 
   private readonly loginForm: FormGroup;
-  private readonly websocketSubscription: Subscription;
+  private readonly mudxmlSubscription: Subscription;
+  private serverError: string = "";
 
-  constructor(private websocketService: WebsocketService, formBuilder: FormBuilder, private router: Router) {
+  constructor(private mudxmlService: MudxmlService, formBuilder: FormBuilder, private router: Router) {
     this.loginForm = formBuilder.group({
       'username': ['', Validators.required]
     });
-    this.websocketSubscription = websocketService.getWebsocketObservable().subscribe(message => this.receiveMessage(message));
+    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'login').subscribe(message => this.receiveMessage(message));
   }
 
   public ngOnInit() {
   }
 
-  private receiveMessage(message: string) {
-    console.log('Got a message from websocket:');
+  private receiveMessage(message: MudMessage) {
+    console.log('Server says:');
     console.log(message);
+    if (message.type === MessageType.ERROR) {
+      this.loginForm.controls['username'].setErrors({ 'server': true });
+      this.serverError = message.message;
+    }
+    if (message.type === MessageType.SUCCESS) {
+      if (this.loginForm.valid) {
+        this.serverError = "";
+        this.router.navigate(['/chat/']);
+      }
+    }
   }
 
   public ngOnDestroy() {
-    this.websocketSubscription.unsubscribe();
+    this.mudxmlSubscription.unsubscribe();
   }
 
   onSubmit({ username }: { username: string }): void {
     console.log('you submitted value: ', username);
-    if (username) {
-      this.websocketService.send(username);
+    if (username && this.loginForm.valid) {
+      this.mudxmlService.send(username);
     }
-    // this.router.navigate(['/chat/']);
   }
 
 }

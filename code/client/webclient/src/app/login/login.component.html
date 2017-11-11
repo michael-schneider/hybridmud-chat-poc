@@ -19,4 +19,7 @@
   <div class="alert alert-danger" role="alert" *ngIf="loginForm.controls['username'].dirty && loginForm.controls['username'].hasError('required')">
     A username is required. Please enter one.
   </div>
+  <div class="alert alert-danger" role="alert" *ngIf="loginForm.controls['username'].dirty && loginForm.controls['username'].hasError('server')">
+    {{serverError}}
+  </div>
 </div>

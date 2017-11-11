@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, QueryList, ElementRef, ViewChildren, Afte
 import { MudxmlService } from '../mudxml.service';
 import { MudMessage, MessageType } from '../mudmessage';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-servermessages',
@@ -15,7 +16,7 @@ export class ServermessagesComponent implements OnInit, OnDestroy, AfterViewInit
   private readonly mudxmlSubscription: Subscription;
 
   constructor(private mudxmlService: MudxmlService) {
-    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().subscribe(message => this.receiveMessage(message));
+    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'server').subscribe(message => this.receiveMessage(message));
   }
 
   ngOnInit() {
