@@ -55,6 +55,4 @@ public class MudWebSocketServer extends WebSocketServer {
     public void onStart() {
         LOGGER.log(Level.INFO, MessageFormat.format("Server started on port {0}", String.valueOf(getPort())));
     }
-
-
 }

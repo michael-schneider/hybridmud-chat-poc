@@ -1,8 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { MudMessage, MessageType } from './mudmessage';
+
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
+
 import { WebsocketService } from './websocket.service';
+import { MudMessage, MessageType } from './mudmessage';
 
 @Injectable()
 export class MudxmlService implements OnDestroy {
@@ -10,7 +12,8 @@ export class MudxmlService implements OnDestroy {
   private readonly subject: Subject<MudMessage> = new Subject();
 
   constructor(private websocketService: WebsocketService) {
-    this.websocketSubscription = websocketService.getWebsocketObservable().subscribe(message => this.receiveMessage(message));
+    this.websocketSubscription = websocketService.getWebsocketObservable().subscribe(message => this.receiveMessage(message),
+      error => this.subject.error(error));
   }
 
   private receiveMessage(message: string) {

@@ -1,8 +1,13 @@
 import { Component, OnInit, ViewChild, QueryList, ElementRef, ViewChildren, AfterViewInit, OnDestroy } from '@angular/core';
-import { MudxmlService } from '../mudxml.service';
-import { MudMessage, MessageType } from '../mudmessage';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
+
+import { environment } from '../../../environments/environment';
+
+import { MudxmlService } from '../mudxml.service';
+import { MudMessage, MessageType } from '../mudmessage';
+
+const CHAT_URL = environment.wsUrl;
 
 @Component({
   selector: 'app-servermessages',
@@ -16,7 +21,8 @@ export class ServermessagesComponent implements OnInit, OnDestroy, AfterViewInit
   private readonly mudxmlSubscription: Subscription;
 
   constructor(private mudxmlService: MudxmlService) {
-    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'server').subscribe(message => this.receiveMessage(message));
+    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'server').subscribe(message => this.receiveMessage(message),
+      error => this.error(error));
   }
 
   ngOnInit() {
@@ -34,6 +40,10 @@ export class ServermessagesComponent implements OnInit, OnDestroy, AfterViewInit
 
   private receiveMessage(message: MudMessage) {
     this.serverMessages.push(message.message);
+  }
+
+  private error(error: Error) {
+    this.serverMessages.push('Error connecting to Server. Please make sure ' + CHAT_URL + ' is working.');
   }
 
   public ngOnDestroy() {
