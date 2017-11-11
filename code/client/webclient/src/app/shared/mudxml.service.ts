@@ -5,6 +5,9 @@ import { Subject } from 'rxjs/Subject';
 
 import { WebsocketService } from './websocket.service';
 import { MudMessage, MessageType } from './mudmessage';
+import { environment } from '../../environments/environment';
+const CHAT_URL = environment.wsUrl;
+
 
 @Injectable()
 export class MudxmlService implements OnDestroy {
@@ -13,14 +16,14 @@ export class MudxmlService implements OnDestroy {
 
   constructor(private websocketService: WebsocketService) {
     this.websocketSubscription = websocketService.getWebsocketObservable().subscribe(message => this.receiveMessage(message),
-      error => this.subject.error(error));
+      error => this.error(error));
   }
 
   private receiveMessage(message: string) {
     console.log("Server says: " + message);
     let messageType: MessageType;
     let messageContent: string;
-    
+
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(message, 'text/xml');
 
@@ -32,13 +35,24 @@ export class MudxmlService implements OnDestroy {
     } else if (xmlTypeAttribute === 'error') {
       messageType = MessageType.ERROR;
     } else {
-      messageType = MessageType.INFORMATION;      
+      messageType = MessageType.INFORMATION;
     }
     messageContent = xmlDoc.documentElement.textContent;
     const mudMessage: MudMessage = {
       domain: messageDomain,
       type: messageType,
       message: messageContent
+    };
+    this.subject.next(mudMessage);
+  }
+
+  // Yes, that is the official way. An Error finishes the stream.
+  // https://stackoverflow.com/questions/41827371/how-do-i-throw-an-error-on-a-behaviour-subject-and-continue-the-stream
+  private error(error: Error) {
+    const mudMessage: MudMessage = {
+      domain: 'server',
+      type: MessageType.ERROR,
+      message: 'Problem with websocket ' + CHAT_URL + '.'
     };
     this.subject.next(mudMessage);
   }
