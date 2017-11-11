@@ -5,7 +5,7 @@ import com.syncic.hybridmud.server.websocket.MudWebSocketServer;
 import java.text.MessageFormat;
 import java.util.Date;
 
-public class UserStateLogin implements UserState {
+    public class UserStateLogin implements UserState {
 
     public UserStateLogin(User user) {
         user.send("<server subsystem=\"server\">Welcome to HybridMud</server>");
@@ -23,7 +23,7 @@ public class UserStateLogin implements UserState {
             user.setLogindate(new Date());
             user.setUsername(username);
 
-            user.send(MessageFormat.format("<login type=\"success\">Welcome <user id=\"{0}\">{1}</user></login  >", user.getId(), user.getUsername()));
+            user.send(MessageFormat.format("<login type=\"success\">Welcome <user id=\"{0}\">{1}</user></login>", user.getId(), user.getUsername()));
             user.setUserState(new UserStateChat(user));
         }
         return true;

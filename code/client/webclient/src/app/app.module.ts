@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { ChatComponent } from './chat/chat.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ServermessagesComponent } from './shared/servermessages/servermessages.component';
+import { UserService } from './shared/user.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { ServermessagesComponent } from './shared/servermessages/servermessages.
     ReactiveFormsModule,
     appRouting
   ],
-  providers: [WebsocketService, MudxmlService],
+  providers: [WebsocketService, MudxmlService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

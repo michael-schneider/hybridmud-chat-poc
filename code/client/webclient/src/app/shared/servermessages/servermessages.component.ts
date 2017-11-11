@@ -17,7 +17,8 @@ export class ServermessagesComponent implements OnInit, OnDestroy, AfterViewInit
   private readonly mudxmlSubscription: Subscription;
 
   constructor(private mudxmlService: MudxmlService) {
-    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'server').subscribe((message) => this.receiveMessage(message));
+    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'server')
+      .subscribe((message) => this.receiveMessage(message));
   }
 
   ngOnInit() {
@@ -32,7 +33,7 @@ export class ServermessagesComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private receiveMessage(message: MudMessage) {
-    this.serverMessages.push(message.message);
+    this.serverMessages.push(message.messageText);
   }
 
   public ngOnDestroy() {

@@ -12,6 +12,7 @@ import 'rxjs/add/operator/filter';
 
 import { MudMessage, MessageType } from '../shared/mudmessage';
 import { MudxmlService } from '../shared/mudxml.service';
+import { UserService } from '../shared/user.service';
 
 
 @Component({
@@ -24,13 +25,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private readonly loginForm: FormGroup;
   private readonly mudxmlSubscription: Subscription;
-  private serverError: string = "";
+  private serverError = '';
 
-  constructor(private mudxmlService: MudxmlService, formBuilder: FormBuilder, private router: Router) {
+  constructor(private mudxmlService: MudxmlService, private userService: UserService, formBuilder: FormBuilder, private router: Router) {
     this.loginForm = formBuilder.group({
       'username': ['', Validators.required]
     });
-    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'login').subscribe(message => this.receiveMessage(message));
+    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'login')
+      .subscribe(message => this.receiveMessage(message));
   }
 
   public ngOnInit() {
@@ -39,11 +41,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   private receiveMessage(message: MudMessage) {
     if (message.type === MessageType.ERROR) {
       this.loginForm.controls['username'].setErrors({ 'server': true });
-      this.serverError = message.message;
+      this.serverError = message.messageText;
     }
     if (message.type === MessageType.SUCCESS) {
       if (this.loginForm.valid) {
-        this.serverError = "";
+        this.serverError = '';
         this.router.navigate(['/chat/']);
       }
     }

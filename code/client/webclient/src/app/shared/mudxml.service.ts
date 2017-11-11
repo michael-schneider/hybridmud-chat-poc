@@ -20,9 +20,8 @@ export class MudxmlService implements OnDestroy {
   }
 
   private receiveMessage(message: string) {
-    console.log("Server says: " + message);
+    console.log('Mudxml Service, the server says: ' + message);
     let messageType: MessageType;
-    let messageContent: string;
 
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(message, 'text/xml');
@@ -37,11 +36,11 @@ export class MudxmlService implements OnDestroy {
     } else {
       messageType = MessageType.INFORMATION;
     }
-    messageContent = xmlDoc.documentElement.textContent;
     const mudMessage: MudMessage = {
       domain: messageDomain,
       type: messageType,
-      message: messageContent
+      message: message,
+      messageText: xmlDoc.documentElement.textContent
     };
     this.subject.next(mudMessage);
   }
@@ -52,7 +51,8 @@ export class MudxmlService implements OnDestroy {
     const mudMessage: MudMessage = {
       domain: 'server',
       type: MessageType.ERROR,
-      message: 'Problem with websocket ' + CHAT_URL + '.'
+      message: '<server type="error">Problem with websocket ' + CHAT_URL + '.</server>',
+      messageText: 'Problem with websocket ' + CHAT_URL + '.'
     };
     this.subject.next(mudMessage);
   }
