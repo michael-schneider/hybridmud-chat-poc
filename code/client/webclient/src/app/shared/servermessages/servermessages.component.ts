@@ -28,9 +28,7 @@ export class ServermessagesComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private scrollToBottom = () => {
-    try {
-      this.content.nativeElement.scrollTop = this.content.nativeElement.scrollHeight;
-    } catch (err) { }
+    this.content.nativeElement.scrollTop = this.content.nativeElement.scrollHeight;
   }
 
   private receiveMessage(message: MudMessage) {

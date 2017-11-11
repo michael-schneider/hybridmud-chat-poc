@@ -8,8 +8,8 @@ import java.util.Date;
 public class UserStateLogin implements UserState {
 
     public UserStateLogin(User user) {
-        user.send("<message subsystem=\"server\">Welcome to HybridMud</message>");
-        user.send("<message subsystem=\"server\">Please enter your name</message>");
+        user.send("<server subsystem=\"server\">Welcome to HybridMud</server>");
+        user.send("<server subsystem=\"server\">Please enter your name</server>");
     }
 
     @Override

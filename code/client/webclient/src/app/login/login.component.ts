@@ -37,8 +37,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private receiveMessage(message: MudMessage) {
-    console.log('Server says:');
-    console.log(message);
     if (message.type === MessageType.ERROR) {
       this.loginForm.controls['username'].setErrors({ 'server': true });
       this.serverError = message.message;
@@ -56,7 +54,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit({ username }: { username: string }): void {
-    console.log('you submitted value: ', username);
     if (username && this.loginForm.valid) {
       this.mudxmlService.send(username);
     }
