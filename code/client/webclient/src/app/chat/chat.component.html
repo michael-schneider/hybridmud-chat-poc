@@ -1,7 +1,10 @@
-<p>
-  REPTILEHAUS NG2 CHAT DEMO
-</p>
-<div *ngFor="let message of messages">
-  {{message}}
+<div class="row">
+  <div class="col-6 col-md-4">Users</div>
+  <div class="col col-md-8 col-md-offset-2">
+    <div *ngFor="let message of messages">
+      {{message}}
+    </div>
+    <input [(ngModel)]="message" />
+    <button (click)="sendMessage()">Send</button>
+  </div>
 </div>
-<input [(ngModel)]="message"  /><button (click)="sendMessage()">Send</button>
