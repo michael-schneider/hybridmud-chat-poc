@@ -12,7 +12,6 @@ import 'rxjs/add/operator/filter';
 
 import { MudMessage, MessageType } from '../shared/mudmessage';
 import { MudxmlService } from '../shared/mudxml.service';
-import { UserService } from '../shared/user.service';
 
 
 @Component({
@@ -27,7 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private readonly mudxmlSubscription: Subscription;
   private serverError = '';
 
-  constructor(private mudxmlService: MudxmlService, private userService: UserService, formBuilder: FormBuilder, private router: Router) {
+  constructor(private mudxmlService: MudxmlService, formBuilder: FormBuilder, private router: Router) {
     this.loginForm = formBuilder.group({
       'username': ['', Validators.required]
     });
