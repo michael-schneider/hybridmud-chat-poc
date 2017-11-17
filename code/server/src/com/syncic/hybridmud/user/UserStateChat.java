@@ -22,7 +22,7 @@ public class UserStateChat implements UserState {
                     user.send("<server subsystem=\"server\">Bye!</server>");
                     return false;
                 default:
-                    user.send(MessageFormat.format("<server subsystem=\"server\">Do not understand \"{0}\"</server>", StringEscapeUtils.escapeXml11(message)));
+                    user.send(MessageFormat.format("<server type=\"error\">Do not understand \"{0}\"</server>", StringEscapeUtils.escapeXml11(message)));
         }
         } else {
             String decodedMessage = decode(message);
