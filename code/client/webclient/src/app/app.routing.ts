@@ -4,13 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { ChatComponent } from './chat/chat.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'chat', component: ChatComponent },
-    { path: '**', component: NotFoundComponent },
+    { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 export const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);

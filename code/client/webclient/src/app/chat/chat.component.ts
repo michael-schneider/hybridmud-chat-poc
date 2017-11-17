@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { WebsocketService } from '../shared/websocket.service';
+
+import { MudxmlService } from '../shared/mudxml.service';
 
 @Component({
   selector: 'app-chat',
@@ -9,13 +10,17 @@ import { WebsocketService } from '../shared/websocket.service';
 export class ChatComponent implements OnInit {
   private message = 'Hello Hell';
 
-  constructor() {
+  constructor(private mudxmlService: MudxmlService) {
 
   }
 
   ngOnInit() {
   }
 
+  logout() {
+    this.mudxmlService.send('/bye');
+    window.location.href = '/';
+  }
 
   sendMsg() {
     // console.log('new message from client to websocket: ', this.message);

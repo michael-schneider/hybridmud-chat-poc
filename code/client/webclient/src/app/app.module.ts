@@ -10,7 +10,6 @@ import { MudxmlService } from './shared/mudxml.service';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { ChatComponent } from './chat/chat.component';
-import { NotFoundComponent } from './not-found/not-found.component';
 import { ServermessagesComponent } from './shared/servermessages/servermessages.component';
 import { CurrentUserService } from './shared/current-user.service';
 
@@ -19,7 +18,6 @@ import { CurrentUserService } from './shared/current-user.service';
     AppComponent,
     LoginComponent,
     ChatComponent,
-    NotFoundComponent,
     ServermessagesComponent
   ],
   imports: [
