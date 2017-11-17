@@ -10,7 +10,7 @@ import {
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
 
-import { MudMessage, MessageType } from '../shared/mudmessage';
+import { MudMessage, MessageType } from '../shared/mud-message';
 import { MudxmlService } from '../shared/mudxml.service';
 
 

@@ -1,11 +1,13 @@
 <div class="row">
-  <div class="col-6 col-md-4">Users</div>
-  <div class="col col-md-8 col-md-offset-2">
-    <div *ngFor="let message of messages">
-      {{message}}
-    </div>
+  <div class="col col-md-2">Users</div>
+  <div class="col col-md-10 col-md-offset-2">
+    <app-chat-messages></app-chat-messages>
+  </div>
+</div>
+<div class="row">
+  <div class="col col-md-2"><button (click)="logout()" class="btn btn-warning">Logout</button></div>
+  <div class="col col-md-10 col-md-offset-2">
     <input [(ngModel)]="message" />
     <button (click)="sendMessage()" class="btn btn-primary">Send</button>
   </div>
 </div>
-<button (click)="logout()" class="btn btn-primary">Logout</button>

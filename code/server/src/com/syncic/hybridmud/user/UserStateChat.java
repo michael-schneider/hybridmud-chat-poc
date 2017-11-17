@@ -15,22 +15,22 @@ public class UserStateChat implements UserState {
     @Override
     public boolean receiveMessage(User user, String message) {
         if (Command.isCommand(message)) {
-            Command command=new Command(message);
-            final String commandString  = command.getCommand();
+            Command command = new Command(message);
+            final String commandString = command.getCommand();
             switch (commandString) {
                 case "bye":
                     user.send("<server subsystem=\"server\">Bye!</server>");
                     return false;
                 default:
-
                     user.send(MessageFormat.format("<server subsystem=\"server\">Do not understand \"{0}\"</server>", StringEscapeUtils.escapeXml11(message)));
-
-            }
+        }
         } else {
             String decodedMessage = decode(message);
+            final Users users = Users.getInstance();
+            users.broadcast(MessageFormat.format("<chat><user id=\"{0}\">{1}</user><message></message></chat>", user.getId(), StringEscapeUtils.escapeXml11(user.getUsername())));
         }
 
-        user.send(MessageFormat.format("ChatState: [{0}]", message));
+        //user.send(MessageFormat.format("ChatState: [{0}]", message));
 
         return true;
     }

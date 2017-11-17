@@ -22,10 +22,12 @@ export class ChatComponent implements OnInit {
     window.location.href = '/';
   }
 
-  sendMsg() {
-    // console.log('new message from client to websocket: ', this.message);
-    // this.mudService.messages.next(this.message);
-    // this.message = '';
+  sendMessage() {
+    let messageToSend = this.message;
+    if(messageToSend.charAt(0)=='/') {
+      messageToSend='\\'+messageToSend;
+    }
+    this.mudxmlService.send(messageToSend);    
   }
 
 }

@@ -52,4 +52,9 @@ public class Users {
         users.remove(webSocket);
     }
 
+    public void broadcast(String message) {
+        for(final User user : users.values()) {
+            user.send(message);
+        }
+    }
 }

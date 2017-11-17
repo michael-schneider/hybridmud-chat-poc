@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 
 import { WebsocketService } from './websocket.service';
-import { MudMessage, MessageType } from './mudmessage';
+import { MudMessage, MessageType } from './mud-message';
 import { environment } from '../../environments/environment';
 const CHAT_URL = environment.wsUrl;
 

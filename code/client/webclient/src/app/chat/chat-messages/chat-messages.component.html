@@ -1,0 +1,12 @@
+<div class="chat-display">
+  <div class="card">
+    <div class="card-header">
+      Chat Messages
+    </div>
+    <div #content class="card-body chat-messages">
+      <div #messages class="card-text message-list" *ngFor="let chatMessage of chatMessages">
+        {{ serverMessage }}
+      </div>
+    </div>
+  </div>
+</div>

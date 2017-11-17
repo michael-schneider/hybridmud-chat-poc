@@ -2,22 +2,22 @@ import { Component, OnInit, ViewChild, QueryList, ElementRef, ViewChildren, Afte
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
 
-import { MudxmlService } from '../mudxml.service';
-import { MudMessage, MessageType } from '../mudmessage';
+import { MudxmlService } from '../../shared/mudxml.service';
+import { MudMessage, MessageType } from '../../shared/mud-message';
 
 @Component({
-  selector: 'app-servermessages',
-  templateUrl: './servermessages.component.html',
-  styleUrls: ['./servermessages.component.css'],
+  selector: 'app-chat-messages',
+  templateUrl: './chat-messages.component.html',
+  styleUrls: ['./chat-messages.component.css']
 })
-export class ServermessagesComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ChatMessagesComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('messages') messages: QueryList<any>;
   @ViewChild('content') content: ElementRef;
-  private serverMessages: string[] = [];
+  private chatMessages: string[] = [];
   private readonly mudxmlSubscription: Subscription;
 
   constructor(private mudxmlService: MudxmlService) {
-    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'server')
+    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'chat')
       .subscribe((message) => this.receiveMessage(message));
   }
 
@@ -33,11 +33,11 @@ export class ServermessagesComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private receiveMessage(message: MudMessage) {
-    this.serverMessages.push(message.messageText);
+    console.log("CHAT:"+message.messageText);
+    //this.chatMessages.push(message.messageText);
   }
 
   public ngOnDestroy() {
     this.mudxmlSubscription.unsubscribe();
   }
-
 }
