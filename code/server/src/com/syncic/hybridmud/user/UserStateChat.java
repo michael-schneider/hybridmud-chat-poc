@@ -1,6 +1,10 @@
 package com.syncic.hybridmud.user;
 
+import com.syncic.hybridmud.utils.Command;
+import org.apache.commons.text.StringEscapeUtils;
 import java.text.MessageFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserStateChat implements UserState {
 
@@ -11,45 +15,27 @@ public class UserStateChat implements UserState {
 
     @Override
     public boolean receiveMessage(User user, String message) {
-        String decodedMessage = decode(message);
+        if (Command.isCommand(message)) {
+            Command command=new Command(message);
+            final String commandString  = command.getCommand();
+            switch (commandString) {
+                case "bye":
+                    user.send("<server subsystem=\"server\">Bye!</server>");
+                    user.send("<server subsystem=\"server\">Bye!</server>");
+                break;
 
-        if (isCommand(message)) {
-            final String command = getCommand(message);
-            switch (command) {
                 default:
 
-                    user.send(MessageFormat.format("<server subsystem=\"server\">Do not understand \"{0}\"</server>", StringEscapeUtils.escapeXml(command)ccommand));
+                    user.send(MessageFormat.format("<server subsystem=\"server\">Do not understand \"{0}\"</server>", StringEscapeUtils.escapeXml11(command)));
 
             }
+        } else {
+            String decodedMessage = Command.decode(message);
         }
 
-        if (message..equals("bye")){
-            user.send("<server subsystem=\"server\">Bye!</server>");
-            return false;
-        }
         user.send(MessageFormat.format("ChatState: [{0}]", message));
 
         return true;
-    }
-
-    private boolean isCommand(String message) {
-        return message.startsWith("/");
-    }
-
-    /**
-     * Commands start with a slash. if it is a chat-message, the first slash is escaped.
-     * Whitespaces at start and end are removed.
-     *
-     * @param message the message to decode
-     * @return decoded message
-     */
-    private String decode(String message) {
-        String returnMessage = message.trim();
-        if (message.startsWith("\\/")) {
-            returnMessage = message.substring(1);
-        }
-
-        return returnMessage;
     }
 
     private String escapeXml(String message) {

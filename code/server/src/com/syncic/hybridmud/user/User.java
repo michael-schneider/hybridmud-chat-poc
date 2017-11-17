@@ -53,7 +53,9 @@ public class User {
     }
 
     public void receive(String message) {
-        userState.receiveMessage(this, message);
+        if (!userState.receiveMessage(this, message)) {
+            logout();
+        }
     }
 
     public void setUserState(UserState userState) {
