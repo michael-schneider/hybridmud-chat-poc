@@ -25,13 +25,10 @@ export class CurrentUserService {
 
   private receiveMessage(message: MudMessage) {
     if (message.type === MessageType.SUCCESS) {
-      console.log('Message Parsing:' + message.message);
-
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(message.message, 'text/xml');
       this.username = xmlDoc.getElementsByTagName('user')[0].childNodes[0].nodeValue;
       this.id = xmlDoc.getElementsByTagName('user')[0].getAttribute('id');
-      console.log('Current USER: ' + this.id + '  ' + this.username);
     }
   }
 }

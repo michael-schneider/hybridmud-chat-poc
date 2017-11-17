@@ -8,7 +8,7 @@ import { MudxmlService } from '../shared/mudxml.service';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  private message = 'Hello Hell';
+  private message = '';
 
   constructor(private mudxmlService: MudxmlService) {
 
@@ -24,10 +24,10 @@ export class ChatComponent implements OnInit {
 
   sendMessage() {
     let messageToSend = this.message;
-    if(messageToSend.charAt(0)=='/') {
-      messageToSend='\\'+messageToSend;
+    if (messageToSend.charAt(0) === '/') {
+      messageToSend = '\\' + messageToSend;
     }
-    this.mudxmlService.send(messageToSend);    
+    this.mudxmlService.send(messageToSend);
   }
 
 }

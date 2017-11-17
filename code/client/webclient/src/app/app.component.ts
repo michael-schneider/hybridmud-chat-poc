@@ -19,16 +19,17 @@ import { MudMessage, MessageType } from './shared/mud-message';
 export class AppComponent implements OnInit, OnDestroy {
   private readonly mudxmlSubscription: Subscription;
 
-  public constructor(private websocketService: WebsocketService, private mudxmlService: MudxmlService, private currentUserService: CurrentUserService, private router: Router) { 
-    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain==='init')
-    .subscribe((message) => this.restart(message));
+  public constructor(private websocketService: WebsocketService, private mudxmlService: MudxmlService,
+    private currentUserService: CurrentUserService, private router: Router) {
+    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'init')
+      .subscribe((message) => this.restart(message));
 
   }
 
-  private restart(message:MudMessage) {
+  private restart(message: MudMessage) {
     // In case we are out of sync with the server
-    if(this.router.url!=='/') {
-      window.location.href='/';
+    if (this.router.url !== '/') {
+      window.location.href = '/';
     }
   }
 

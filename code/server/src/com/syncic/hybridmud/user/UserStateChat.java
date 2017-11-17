@@ -27,7 +27,8 @@ public class UserStateChat implements UserState {
         } else {
             String decodedMessage = decode(message);
             final Users users = Users.getInstance();
-            users.broadcast(MessageFormat.format("<chat><user id=\"{0}\">{1}</user><message></message></chat>", user.getId(), StringEscapeUtils.escapeXml11(user.getUsername())));
+            users.broadcast(MessageFormat.format("<chat><user id=\"{0}\">{1}</user><message>{2}</message></chat>",
+                    user.getId(), StringEscapeUtils.escapeXml11(user.getUsername()), StringEscapeUtils.escapeXml11(decodedMessage)));
         }
 
         //user.send(MessageFormat.format("ChatState: [{0}]", message));
