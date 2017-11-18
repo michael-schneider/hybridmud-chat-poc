@@ -13,6 +13,7 @@ import { ChatComponent } from './chat/chat.component';
 import { ServerMessagesComponent } from './shared/server-messages/server-messages.component';
 import { CurrentUserService } from './shared/current-user.service';
 import { ChatMessagesComponent } from './chat/chat-messages/chat-messages.component';
+import { EnsureLoginService } from './shared/ensure-login.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,6 @@ import { ChatMessagesComponent } from './chat/chat-messages/chat-messages.compon
     LoginComponent,
     ChatComponent,
     ServerMessagesComponent,
-    ChatMessagesComponent,
     ChatMessagesComponent
   ],
   imports: [
@@ -29,7 +29,7 @@ import { ChatMessagesComponent } from './chat/chat-messages/chat-messages.compon
     ReactiveFormsModule,
     appRouting
   ],
-  providers: [WebsocketService, MudxmlService, CurrentUserService],
+  providers: [WebsocketService, MudxmlService, CurrentUserService, EnsureLoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
