@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col col-md-2">Users</div>
+  <div class="col col-md-2"><app-users-online></app-users-online></div>
   <div class="col col-md-10 col-md-offset-2">
     <app-chat-messages></app-chat-messages>
   </div>
@@ -7,7 +7,9 @@
 <div class="row">
   <div class="col col-md-2"><button (click)="logout()" class="btn btn-warning">Logout</button></div>
   <div class="col col-md-10 col-md-offset-2">
-    <input [(ngModel)]="message" />
-    <button (click)="sendMessage()" class="btn btn-primary">Send</button>
+    <form class="form-inline">
+    <input [(ngModel)]="message" class="form-control" [ngModelOptions]="{standalone: true}">
+    <input (click)="sendMessage()" type="submit" value="Send" class="btn btn-primary">
+    </form>
   </div>
 </div>

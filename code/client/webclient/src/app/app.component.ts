@@ -7,7 +7,7 @@ import 'rxjs/add/operator/filter';
 import { WebsocketService } from './shared/websocket.service';
 import { CurrentUserService } from './shared/current-user.service';
 import { MudxmlService } from './shared/mudxml.service';
-import { MudMessage, MessageType } from './shared/mud-message';
+import { MudMessage } from './shared/mud-message';
 
 
 @Component({

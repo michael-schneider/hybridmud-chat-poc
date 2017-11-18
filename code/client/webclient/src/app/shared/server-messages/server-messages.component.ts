@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, QueryList, ElementRef, ViewChildren, Afte
 import { Subscription } from 'rxjs/Subscription';
 
 import { MudxmlService } from '../mudxml.service';
-import { MudMessage, MessageType } from '../mud-message';
+import { MudMessage } from '../mud-message';
 
 @Component({
   selector: 'app-server-messages',
@@ -32,7 +32,7 @@ export class ServerMessagesComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private receiveMessage(message: MudMessage) {
-    this.serverMessages.push(message.messageText);
+    this.serverMessages.push(message.message);
   }
 
   public ngOnDestroy() {

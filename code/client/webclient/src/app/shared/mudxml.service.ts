@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 
 import { WebsocketService } from './websocket.service';
-import { MudMessage, MessageType } from './mud-message';
+import { MudMessage } from './mud-message';
 import { environment } from '../../environments/environment';
 const CHAT_URL = environment.wsUrl;
 
@@ -21,26 +21,17 @@ export class MudxmlService implements OnDestroy {
 
   private receiveMessage(message: string) {
     console.log('Mudxml Service, the server says: ' + message);
-    let messageType: MessageType;
-
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(message, 'text/xml');
 
     const messageDomain = xmlDoc.documentElement.tagName.toLowerCase();
     const xmlTypeAttribute = xmlDoc.documentElement.getAttribute('type');
+    const messageType = xmlTypeAttribute ? xmlTypeAttribute.toLowerCase() : 'information';
 
-    if (xmlTypeAttribute === 'success') {
-      messageType = MessageType.SUCCESS;
-    } else if (xmlTypeAttribute === 'error') {
-      messageType = MessageType.ERROR;
-    } else {
-      messageType = MessageType.INFORMATION;
-    }
     const mudMessage: MudMessage = {
       domain: messageDomain,
       type: messageType,
-      message: message,
-      messageText: xmlDoc.documentElement.textContent
+      message: message
     };
     this.subject.next(mudMessage);
   }
@@ -50,10 +41,13 @@ export class MudxmlService implements OnDestroy {
   private error(error: Error) {
     const mudMessage: MudMessage = {
       domain: 'server',
-      type: MessageType.ERROR,
+      type: 'error',
       message: '<server type="error">Problem with websocket ' + CHAT_URL + '.</server>',
-      messageText: 'Problem with websocket ' + CHAT_URL + '.'
     };
+    this.subject.next(mudMessage);
+  }
+
+  public next(mudMessage: MudMessage) {
     this.subject.next(mudMessage);
   }
 

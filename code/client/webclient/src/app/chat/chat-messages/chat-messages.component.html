@@ -5,7 +5,12 @@
     </div>
     <div #content class="card-body chat-messages">
       <div #messages class="card-text message-list" *ngFor="let chatMessage of chatMessages">
-        <b>{{ chatMessage.username }}:</b> {{ chatMessage.message }}
+        <div *ngIf="chatMessage.type === chatMessageType.CHAT">
+          <b>{{ chatMessage.username }}:</b> {{ chatMessage.message }}
+        </div>
+        <div *ngIf="chatMessage.type === chatMessageType.STATUS">
+          {{ chatMessage.username }} {{ chatMessage.message }}
+        </div>
       </div>
     </div>
   </div>

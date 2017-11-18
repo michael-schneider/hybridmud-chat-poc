@@ -24,7 +24,7 @@ import java.util.Date;
             user.setLogindate(new Date());
             user.setUsername(username);
 
-            user.send(MessageFormat.format("<login type=\"success\">Welcome <user id=\"{0}\">{1}</user></login>", user.getId(), StringEscapeUtils.escapeXml11(user.getUsername())));
+            user.send(MessageFormat.format("<login type=\"success\">Welcome {0}</login>", user.toXml()));
             user.setUserState(new UserStateChat(user));
         }
         return true;

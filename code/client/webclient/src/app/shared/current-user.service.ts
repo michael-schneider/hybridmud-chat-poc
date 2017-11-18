@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
 
-import { MudMessage, MessageType } from '../shared/mud-message';
+import { MudMessage } from '../shared/mud-message';
 import { MudxmlService } from '../shared/mudxml.service';
+import { User } from './user';
 
 
 @Injectable()
 export class CurrentUserService {
-  private username: string;
-  private id: string;
+  private currentUser: User;
 
   private readonly mudxmlSubscription: Subscription;
 
@@ -20,15 +20,19 @@ export class CurrentUserService {
   }
 
   public isLoggedIn(): boolean {
-    return this.id && this.id.length >= 0;
+    return this.currentUser !== undefined && this.currentUser.userId && this.currentUser.userId.length >= 0;
   }
 
   private receiveMessage(message: MudMessage) {
-    if (message.type === MessageType.SUCCESS) {
+    if (message.type === 'success') {
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(message.message, 'text/xml');
-      this.username = xmlDoc.getElementsByTagName('user')[0].childNodes[0].nodeValue;
-      this.id = xmlDoc.getElementsByTagName('user')[0].getAttribute('id');
+      const username = xmlDoc.getElementsByTagName('user')[0].childNodes[0].nodeValue;
+      const userId = xmlDoc.getElementsByTagName('user')[0].getAttribute('id');
+      this.currentUser = {
+        userId: userId,
+        username: username
+      };
     }
   }
 }

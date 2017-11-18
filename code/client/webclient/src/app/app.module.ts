@@ -14,6 +14,7 @@ import { ServerMessagesComponent } from './shared/server-messages/server-message
 import { CurrentUserService } from './shared/current-user.service';
 import { ChatMessagesComponent } from './chat/chat-messages/chat-messages.component';
 import { EnsureLoginService } from './shared/ensure-login.service';
+import { UsersOnlineComponent } from './chat/users-online/users-online.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { EnsureLoginService } from './shared/ensure-login.service';
     LoginComponent,
     ChatComponent,
     ServerMessagesComponent,
-    ChatMessagesComponent
+    ChatMessagesComponent,
+    UsersOnlineComponent
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@ import {
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
 
-import { MudMessage, MessageType } from '../shared/mud-message';
+import { MudMessage } from '../shared/mud-message';
 import { MudxmlService } from '../shared/mudxml.service';
 
 
@@ -38,11 +38,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private receiveMessage(message: MudMessage) {
-    if (message.type === MessageType.ERROR) {
+    if (message.type === 'error') {
       this.loginForm.controls['username'].setErrors({ 'server': true });
-      this.serverError = message.messageText;
+      this.serverError = message.message.replace(/<[^>]*>/g, '');
     }
-    if (message.type === MessageType.SUCCESS) {
+    if (message.type === 'success') {
       if (this.loginForm.valid) {
         this.serverError = '';
         this.router.navigate(['/chat/']);

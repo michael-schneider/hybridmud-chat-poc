@@ -3,9 +3,9 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
 
 import { MudxmlService } from '../../shared/mudxml.service';
-import { MudMessage, MessageType } from '../../shared/mud-message';
+import { MudMessage } from '../../shared/mud-message';
 
-import { ChatMessage } from './chat-message';
+import { ChatMessage, ChatMessageType } from './chat-message';
 
 @Component({
   selector: 'app-chat-messages',
@@ -17,6 +17,7 @@ export class ChatMessagesComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('content') content: ElementRef;
   private chatMessages: ChatMessage[] = [];
   private readonly mudxmlSubscription: Subscription;
+  private readonly chatMessageType = ChatMessageType;
 
   constructor(private mudxmlService: MudxmlService) {
     this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'chat')
@@ -41,11 +42,13 @@ export class ChatMessagesComponent implements OnInit, OnDestroy, AfterViewInit {
     const username = xmlDoc.getElementsByTagName('user')[0].childNodes[0].nodeValue;
     const userId = xmlDoc.getElementsByTagName('user')[0].getAttribute('id');
     const chat = xmlDoc.getElementsByTagName('message')[0].childNodes[0].nodeValue;
+    const type = xmlDoc.documentElement.getAttribute('type') === 'status' ? ChatMessageType.STATUS : ChatMessageType.CHAT;
 
     const chatMessage: ChatMessage = {
       userId: userId,
       username: username,
-      message: chat
+      message: chat,
+      type: type
     };
     this.chatMessages.push(chatMessage);
   }

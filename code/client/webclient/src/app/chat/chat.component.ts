@@ -28,6 +28,7 @@ export class ChatComponent implements OnInit {
       messageToSend = '\\' + messageToSend;
     }
     this.mudxmlService.send(messageToSend);
+    this.message = '';
   }
 
 }

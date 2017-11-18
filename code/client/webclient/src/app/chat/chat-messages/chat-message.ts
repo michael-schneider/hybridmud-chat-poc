@@ -1,5 +1,8 @@
+export enum ChatMessageType {CHAT, STATUS}
+
 export class ChatMessage {
-  userId: string;
-  username: string;
-  message: string;
+  readonly userId: string;
+  readonly username: string;
+  readonly message: string;
+  readonly type: ChatMessageType;
 }

@@ -2,6 +2,7 @@ package com.syncic.hybridmud.user;
 
 import org.java_websocket.WebSocket;
 
+import java.text.MessageFormat;
 import java.util.*;
 
 public class Users {
@@ -39,10 +40,21 @@ public class Users {
         return ret;
     }
 
+    public User[] getValidUsers() {
+        List<User> validUsers=new ArrayList<>();
+
+        for (final User user: users.values()) {
+            if(user.getUsername() != null) {
+                validUsers.add(user);
+            }
+        }
+
+        return validUsers.toArray(new User[0]);
+    }
+
     public User getUserByWebSocket(WebSocket webSocket) {
         return users.getOrDefault(webSocket, null);
     }
-
 
     public void addUser(WebSocket webSocket, User user) {
         users.putIfAbsent(webSocket, user);
@@ -53,7 +65,7 @@ public class Users {
     }
 
     public void broadcast(String message) {
-        for(final User user : users.values()) {
+        for (final User user : users.values()) {
             user.send(message);
         }
     }

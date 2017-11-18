@@ -1,7 +1,9 @@
 package com.syncic.hybridmud.user;
 
 import com.syncic.hybridmud.server.Transmitter;
+import org.apache.commons.text.StringEscapeUtils;
 
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -64,6 +66,10 @@ public class User {
 
     public void logout() {
         transmitter.close();
+    }
+
+    public String toXml() {
+        return MessageFormat.format("<user id=\"{0}\">{1}</user>", StringEscapeUtils.escapeXml11(id.toString()), StringEscapeUtils.escapeXml11(username));
     }
 
 }
