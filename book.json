@@ -1,0 +1,10 @@
+{
+    "root": "./docs",
+    "plugins": ["prism", "-highlight"],
+    "links": {
+        "sidebar": {
+            "GitHub Repository": "https://github.com/michael-schneider/hybridmud-chat-poc"
+        }
+    },
+    "pluginsConfig": {}
+}
