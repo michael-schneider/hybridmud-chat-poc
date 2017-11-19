@@ -1,0 +1,5 @@
+.users-online {
+    overflow-y: scroll;
+    height: 100%;
+    max-height: inherit;
+}

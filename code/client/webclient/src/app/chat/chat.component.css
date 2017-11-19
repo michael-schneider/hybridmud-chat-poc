@@ -1,0 +1,10 @@
+.chat-display {
+    height: 80vh;
+    max-height: 80vh;
+}
+
+.row {
+    padding-top: 1em;
+}
+
+.col {max-height: inherit;}

@@ -1,5 +1,5 @@
-.chat-messages {
-    height: 60vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
+.chat-messages-display {
+    overflow-y: scroll;   
+    height: 100%;
+    max-height: inherit;
 }

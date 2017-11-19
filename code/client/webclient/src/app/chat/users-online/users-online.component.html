@@ -1,11 +1,17 @@
-<div class="users-online">
-  <div class="card">
-    <div class="card-header">
-      Users Online
-    </div>
-    <div class="card-body">
-      <div class="" *ngFor="let userOnline of usersOnline">
-        {{ userOnline.username }}
+<div class="card users-online">
+  <div class="card-header">
+    Users Online
+  </div>
+  <div class="card-body">
+    <div class="card" *ngFor="let userOnline of usersOnline">
+      <div class="card-body">
+        <h4 class="card-title"> {{ userOnline.username }} </h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example
+          text to build on the card title and make up the bulk of the card's content. Some quick example text to build on
+          the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
       </div>
     </div>
   </div>
+</div>
