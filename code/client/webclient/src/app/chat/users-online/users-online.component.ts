@@ -5,11 +5,31 @@ import 'rxjs/add/operator/filter';
 import { MudxmlService } from '../../shared/mudxml.service';
 import { MudMessage } from '../../shared/mud-message';
 import { User } from '../../shared/user';
+import { trigger, state, style, transition, animate, group } from '@angular/animations';
 
 @Component({
   selector: 'app-users-online',
   templateUrl: './users-online.component.html',
-  styleUrls: ['./users-online.component.css']
+  styleUrls: ['./users-online.component.css'],
+  animations: [
+    trigger('userChange', [
+      transition(':enter', [
+        group([
+          style({ height: 0 }),
+          animate('200ms ease'),
+          style({ transform: 'scale(0)' }),
+          animate('200ms 200ms ease-in')
+        ])
+      ]),
+      transition(':leave', [
+        group([
+          animate('200ms ease-out', style({ transform: 'scale(0)' })),
+          style({ height: '*' }),
+          animate('200ms 200ms ease', style({ height: 0 }))
+        ])
+      ])
+    ])
+  ]
 })
 export class UsersOnlineComponent implements OnInit, OnDestroy {
   private usersOnline: User[] = [];
