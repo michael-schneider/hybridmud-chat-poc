@@ -1,5 +1,17 @@
+.current-user {
+    margin-bottom: 1em;
+}
+
+.not-dm {
+    opacity: 0.4;
+}
+
 .users-online {
-    overflow-y: scroll;
     height: 100%;
     max-height: inherit;
+}
+
+.users-online-list {
+    overflow-y: scroll;
+    overflow-x: hidden;
 }

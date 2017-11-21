@@ -41,7 +41,12 @@ export class ChatMessagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const username = xmlDoc.getElementsByTagName('user')[0].childNodes[0].nodeValue;
     const userId = xmlDoc.getElementsByTagName('user')[0].getAttribute('id');
-    const chat = xmlDoc.getElementsByTagName('message')[0].childNodes[0].nodeValue;
+    const xmlMessage = xmlDoc.getElementsByTagName('message')[0].childNodes[0];
+    if (xmlMessage === undefined) {
+      // No message;
+      return;
+    }
+    const chat = xmlMessage.nodeValue;
     const type = xmlDoc.documentElement.getAttribute('type') === 'status' ? ChatMessageType.STATUS : ChatMessageType.CHAT;
 
     const chatMessage: ChatMessage = {

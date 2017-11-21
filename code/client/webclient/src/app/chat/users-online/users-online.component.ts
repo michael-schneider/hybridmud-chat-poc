@@ -6,6 +6,7 @@ import { MudxmlService } from '../../shared/mudxml.service';
 import { MudMessage } from '../../shared/mud-message';
 import { User } from '../../shared/user';
 import { trigger, state, style, transition, animate, group } from '@angular/animations';
+import { CurrentUserService } from '../../shared/current-user.service';
 
 @Component({
   selector: 'app-users-online',
@@ -34,10 +35,14 @@ import { trigger, state, style, transition, animate, group } from '@angular/anim
 export class UsersOnlineComponent implements OnInit, OnDestroy {
   private usersOnline: User[] = [];
   private readonly mudxmlSubscription: Subscription;
+  private readonly currentUser: User;
+  private directMessageRecipient: User;
 
-  constructor(private mudxmlService: MudxmlService) {
+  constructor(private mudxmlService: MudxmlService, private currentUserService: CurrentUserService) {
     this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'users')
       .subscribe((message) => this.receiveMessage(message));
+
+    this.currentUser = this.currentUserService.getCurrentUser();
   }
 
   ngOnInit() {
@@ -70,6 +75,14 @@ export class UsersOnlineComponent implements OnInit, OnDestroy {
     }
   }
 
+  private directMessageTo(userOnline: User) {
+    this.directMessageRecipient = userOnline;
+  }
+
+  private directMessageEnd() {
+    this.directMessageRecipient = null;
+  }
+
   private userLogout(xmlUser: Element, user: User) {
     this.usersOnline = this.usersOnline.filter(userToRemove => {
       return userToRemove.userId !== user.userId;
@@ -86,6 +99,7 @@ export class UsersOnlineComponent implements OnInit, OnDestroy {
     this.usersOnline.push(user);
     this.makeUsersOnlineUnique();
     this.sortUsersOnline();
+    this.removeCurrentUserFromAllUsers();
     if (messageType === 'login') {
       const mudMessage: MudMessage = {
         domain: 'chat',
@@ -111,6 +125,12 @@ export class UsersOnlineComponent implements OnInit, OnDestroy {
   private sortUsersOnline() {
     this.usersOnline.sort((a, b) => {
       return a.username.localeCompare(b.username);
+    });
+  }
+
+  private removeCurrentUserFromAllUsers() {
+    this.usersOnline = this.usersOnline.filter(user => {
+      return user.userId !== this.currentUser.userId;
     });
   }
 }

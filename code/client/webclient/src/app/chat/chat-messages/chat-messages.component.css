@@ -1,5 +1,8 @@
 .chat-messages-display {
-    overflow-y: scroll;   
     height: 100%;
     max-height: inherit;
+}
+
+.chat-messages {
+    overflow-y: scroll;
 }
