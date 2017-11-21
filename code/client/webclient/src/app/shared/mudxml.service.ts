@@ -6,6 +6,7 @@ import { Subject } from 'rxjs/Subject';
 import { WebsocketService } from './websocket.service';
 import { MudMessage } from './mud-message';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs/Observable';
 const CHAT_URL = environment.wsUrl;
 
 
@@ -55,7 +56,7 @@ export class MudxmlService implements OnDestroy {
     this.websocketService.send(data);
   }
 
-  public getMudxmlObservable() {
+  public getMudxmlObservable(): Observable<MudMessage> {
     return this.subject.asObservable();
   }
 

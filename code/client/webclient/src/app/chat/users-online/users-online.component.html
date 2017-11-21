@@ -10,12 +10,11 @@
             </div>
         </div>
 
-        <div class="card text-center" *ngFor="let userOnline of usersOnline" [@userChange] [class.not-dm]="directMessageRecipient != null && userOnline.userId!=directMessageRecipient.userId">
+        <div class="card text-center" *ngFor="let userOnline of usersOnline" [@userChange] [class.not-dm]="directMessageRecipient !== null && directMessageRecipient !== userOnline">
             <div class="card-body mx-auto">
                 <h5 class="card-title"> {{ userOnline.username }} </h5>
-                <a href="#">ljaslkdjalksdj</a>
-                <button (click)="directMessageTo(userOnline)" type="button" class="btn btn-primary btn-sm">Direct Message</button>
-                <button (click)="directMessageEnd()" type="button" class="btn btn-warning btn-sm">End Direct Message</button>
+                <button *ngIf="directMessageRecipient !== userOnline" (click)="directMessageTo(userOnline)" type="button" class="btn btn-primary btn-sm">Direct Message</button>
+                <button *ngIf="directMessageRecipient === userOnline" (click)="directMessageEnd()" type="button" class="btn btn-warning btn-sm">End Direct Message</button>
             </div>
         </div>
     </div>

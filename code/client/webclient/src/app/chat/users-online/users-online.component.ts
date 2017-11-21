@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { trigger, state, style, transition, animate, group } from '@angular/animations';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
 
 import { MudxmlService } from '../../shared/mudxml.service';
 import { MudMessage } from '../../shared/mud-message';
 import { User } from '../../shared/user';
-import { trigger, state, style, transition, animate, group } from '@angular/animations';
+
 import { CurrentUserService } from '../../shared/current-user.service';
+import { DirectMessageUserService } from '../direct-message-user.service';
 
 @Component({
   selector: 'app-users-online',
@@ -32,17 +34,24 @@ import { CurrentUserService } from '../../shared/current-user.service';
     ])
   ]
 })
+
 export class UsersOnlineComponent implements OnInit, OnDestroy {
   private usersOnline: User[] = [];
   private readonly mudxmlSubscription: Subscription;
   private readonly currentUser: User;
-  private directMessageRecipient: User;
+  private directMessageRecipient: User = null;
+  private directMessageUserSubscription: Subscription;
 
-  constructor(private mudxmlService: MudxmlService, private currentUserService: CurrentUserService) {
+  constructor(private mudxmlService: MudxmlService, private currentUserService: CurrentUserService,
+    private directMessageUserService: DirectMessageUserService) {
     this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'users')
       .subscribe((message) => this.receiveMessage(message));
 
+    this.directMessageUserSubscription = directMessageUserService.getDirectMessageUserObservable()
+      .subscribe((user) => this.directMessageRecipient = user);
+
     this.currentUser = this.currentUserService.getCurrentUser();
+
   }
 
   ngOnInit() {
@@ -76,11 +85,11 @@ export class UsersOnlineComponent implements OnInit, OnDestroy {
   }
 
   private directMessageTo(userOnline: User) {
-    this.directMessageRecipient = userOnline;
+    this.directMessageUserService.directMessageUser(userOnline);
   }
 
   private directMessageEnd() {
-    this.directMessageRecipient = null;
+    this.directMessageUserService.directMessageUser(null);
   }
 
   private userLogout(xmlUser: Element, user: User) {

@@ -16,6 +16,7 @@ import { CurrentUserService } from './shared/current-user.service';
 import { ChatMessagesComponent } from './chat/chat-messages/chat-messages.component';
 import { EnsureLoginService } from './shared/ensure-login.service';
 import { UsersOnlineComponent } from './chat/users-online/users-online.component';
+import { DirectMessageUserService } from './chat/direct-message-user.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { UsersOnlineComponent } from './chat/users-online/users-online.component
     appRouting,
     BrowserAnimationsModule
   ],
-  providers: [WebsocketService, MudxmlService, CurrentUserService, EnsureLoginService],
+  providers: [WebsocketService, MudxmlService, CurrentUserService, DirectMessageUserService, EnsureLoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

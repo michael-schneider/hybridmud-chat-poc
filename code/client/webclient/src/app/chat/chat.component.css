@@ -3,4 +3,10 @@
     max-height: 80vh;
 }
 
-.col {max-height: inherit;}
+.col {
+    max-height: inherit;
+}
+
+#messageInput {
+    width: 50%;
+}
