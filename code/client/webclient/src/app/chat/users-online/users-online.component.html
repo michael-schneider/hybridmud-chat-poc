@@ -2,11 +2,20 @@
     <div class="card-header">
         Users Online
     </div>
-    <div class="card-body">
-        <div class="card" *ngFor="let userOnline of usersOnline" [@userChange]>
+    <div class="card-body users-online-list">
+
+        <div class="card current-user text-center bg-light">
             <div class="card-body">
-                <h4 class="card-title"> {{ userOnline.username }} </h4>
-                <a href="#" class="card-link">Direct Message</a>
+                <h5 class="card-title"> {{ currentUser.username }} </h5>
+            </div>
+        </div>
+
+        <div class="card text-center" *ngFor="let userOnline of usersOnline" [@userChange] [class.not-dm]="directMessageRecipient != null && userOnline.userId!=directMessageRecipient.userId">
+            <div class="card-body mx-auto">
+                <h5 class="card-title"> {{ userOnline.username }} </h5>
+                <a href="#">ljaslkdjalksdj</a>
+                <button (click)="directMessageTo(userOnline)" type="button" class="btn btn-primary btn-sm">Direct Message</button>
+                <button (click)="directMessageEnd()" type="button" class="btn btn-warning btn-sm">End Direct Message</button>
             </div>
         </div>
     </div>

@@ -23,6 +23,10 @@ export class CurrentUserService {
     return this.currentUser !== undefined && this.currentUser.userId && this.currentUser.userId.length >= 0;
   }
 
+  public getCurrentUser(): User {
+    return this.currentUser;
+  }
+
   private receiveMessage(message: MudMessage) {
     if (message.type === 'success') {
       const parser = new DOMParser();
