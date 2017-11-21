@@ -4,6 +4,8 @@ import com.syncic.hybridmud.utils.Command;
 import org.apache.commons.text.StringEscapeUtils;
 
 import java.text.MessageFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserStateChat implements UserState {
 
@@ -15,7 +17,7 @@ public class UserStateChat implements UserState {
     }
 
     @Override
-    public boolean receiveMessage(User user, String message) {
+    public boolean receiveMessage(final User user, final String message) {
         if (Command.isCommand(message)) {
             Command command = new Command(message);
             final String commandString = command.getCommand();
@@ -25,6 +27,28 @@ public class UserStateChat implements UserState {
                     user.send("<server>Bye!</server>");
                     Users.getInstance().broadcast(MessageFormat.format("<users type=\"logout\">{0}</users>", user.toXml()));
                     return false;
+                case "tell":
+                    final Pattern pattern = Pattern.compile("^(\\S+)\\s+(.*)$");
+                    Matcher matcher = pattern.matcher(command.getCommandArgument());
+                    if (matcher.find() && matcher.groupCount() == 2) {
+                        final String username = matcher.group(1);
+                        final String chatMessage = matcher.group(2);
+                        User directMessageRecipient = Users.getInstance().getUserByUsername(username);
+                        if (directMessageRecipient != null) {
+                            directMessageRecipient.send(MessageFormat.format("<chat type=\"tell\" direction=\"from\">{0}{1}</chat>",
+                                    user.toXml(),StringEscapeUtils.escapeXml11(chatMessage)));
+                            messageToUser=MessageFormat.format("<chat type=\"tell\" direction=\"to\">{0}{1}</chat>",
+                                    directMessageRecipient.toXml(),StringEscapeUtils.escapeXml11(chatMessage));
+
+                        } else {
+                            messageToUser = MessageFormat.format("<server type=\"error\">No such user \"{0}\"</server>",
+                                    StringEscapeUtils.escapeXml11(command.getCommandArgument()));
+                        }
+                    } else {
+                        messageToUser = MessageFormat.format("<server type=\"error\">Wrong Arguments to /tell: \"{0}\"</server>",
+                                StringEscapeUtils.escapeXml11(command.getCommandArgument()));
+                    }
+                    break;
                 case "who":
                     StringBuilder usersString = new StringBuilder();
                     User[] users = Users.getInstance().getValidUsers();

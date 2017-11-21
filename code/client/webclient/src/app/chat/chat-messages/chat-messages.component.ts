@@ -22,6 +22,8 @@ export class ChatMessagesComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private mudxmlService: MudxmlService) {
     this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'chat')
       .subscribe((message) => this.receiveMessage(message));
+    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.type === 'error')
+      .subscribe((message) => this.receiveError(message));
   }
 
   ngOnInit() {
@@ -33,6 +35,17 @@ export class ChatMessagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private scrollToBottom = () => {
     this.content.nativeElement.scrollTop = this.content.nativeElement.scrollHeight;
+  }
+
+  receiveError(message: MudMessage) {
+    const chatMessage: ChatMessage = {
+      userId: null,
+      username: null,
+      message: message.message.replace(/<[^>]*>/g, ''),
+      type: ChatMessageType.ERROR
+    };
+    console.log(chatMessage);
+    this.chatMessages.push(chatMessage);
   }
 
   private receiveMessage(message: MudMessage) {
@@ -47,7 +60,14 @@ export class ChatMessagesComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
     const chat = xmlMessage.nodeValue;
-    const type = xmlDoc.documentElement.getAttribute('type') === 'status' ? ChatMessageType.STATUS : ChatMessageType.CHAT;
+    let type: ChatMessageType;
+    switch (xmlDoc.documentElement.getAttribute('type')) {
+      case 'status': type = ChatMessageType.STATUS;
+        break;
+      case 'tell': type = ChatMessageType.TELL;
+        break;
+      default: type = ChatMessageType.CHAT;
+    }
 
     const chatMessage: ChatMessage = {
       userId: userId,

@@ -6,3 +6,8 @@
 .chat-messages {
     overflow-y: scroll;
 }
+
+.errorMessage {
+    color: red;
+    font-weight: bold;
+}

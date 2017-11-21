@@ -1,6 +1,6 @@
 # Summary
 
-* [Introduction](README.md)
+* [Introduction Hybrid MUD Chat POC](README.md)
 * [General Tools](general/README.md)
     * [Project Documentation](general/documentation.md)
 * [Server](server/README.md)
