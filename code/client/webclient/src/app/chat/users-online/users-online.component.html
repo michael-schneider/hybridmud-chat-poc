@@ -1,5 +1,5 @@
 <div class="card users-online">
-    <div class="card-header">
+    <div class="card-header" i18n>
         Users Online
     </div>
     <div class="card-body users-online-list">
@@ -13,8 +13,8 @@
         <div class="card text-center" *ngFor="let userOnline of usersOnline" [@userChange] [class.not-dm]="directMessageRecipient !== null && directMessageRecipient !== userOnline">
             <div class="card-body mx-auto">
                 <h5 class="card-title"> {{ userOnline.username }} </h5>
-                <button *ngIf="directMessageRecipient !== userOnline" (click)="directMessageTo(userOnline)" type="button" class="btn btn-primary btn-sm">Direct Message</button>
-                <button *ngIf="directMessageRecipient === userOnline" (click)="directMessageEnd()" type="button" class="btn btn-warning btn-sm">End Direct Message</button>
+                <button *ngIf="directMessageRecipient !== userOnline" (click)="directMessageTo(userOnline)" type="button" class="btn btn-primary btn-sm" i18n>Direct Message</button>
+                <button *ngIf="directMessageRecipient === userOnline" (click)="directMessageEnd()" type="button" class="btn btn-warning btn-sm" i18n>End Direct Message</button>
             </div>
         </div>
     </div>

@@ -22,7 +22,7 @@ import { MudxmlService } from '../shared/mudxml.service';
 
 export class LoginComponent implements OnInit, OnDestroy {
 
-  private readonly loginForm: FormGroup;
+  public readonly loginForm: FormGroup;
   private readonly mudxmlSubscription: Subscription;
   private serverError = '';
 

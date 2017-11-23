@@ -15,7 +15,7 @@ import { ChatMessage, ChatMessageType } from './chat-message';
 export class ChatMessagesComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('messages') messages: QueryList<any>;
   @ViewChild('content') content: ElementRef;
-  private chatMessages: ChatMessage[] = [];
+  public chatMessages: ChatMessage[] = [];
   private readonly mudxmlSubscription: Subscription;
   private readonly chatMessageType = ChatMessageType;
 

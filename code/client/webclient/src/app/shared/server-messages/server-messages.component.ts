@@ -12,7 +12,7 @@ import { MudMessage } from '../mud-message';
 export class ServerMessagesComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('messages') messages: QueryList<any>;
   @ViewChild('content') content: ElementRef;
-  private serverMessages: string[] = [];
+  public serverMessages: string[] = [];
   private readonly mudxmlSubscription: Subscription;
 
   constructor(private mudxmlService: MudxmlService) {

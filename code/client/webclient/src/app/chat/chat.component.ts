@@ -28,9 +28,10 @@ import { DirectMessageUserService } from './direct-message-user.service';
 })
 export class ChatComponent implements OnInit {
 
+  public directMessageRecipient: User = null;
+  public message = '';
+
   private directMessageUserSubscription: Subscription;
-  private directMessageRecipient: User = null;
-  private message = '';
 
   constructor(private mudxmlService: MudxmlService, private directMessageUserService: DirectMessageUserService) {
     this.directMessageUserSubscription = directMessageUserService.getDirectMessageUserObservable()

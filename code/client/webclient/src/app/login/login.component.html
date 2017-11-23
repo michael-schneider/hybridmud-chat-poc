@@ -1,26 +1,25 @@
 <div class="container">
-  <div class="jumbotron">
-    <h1>Hybridmud Chat Proof-Of-Concept</h1>
-    <p class="lead">Is it possible to have one system serving at least both, browser and telnet client? We will find out with this proof-of-concept.
-    </p>
-  </div>
+    <div class="jumbotron">
+        <h1 i18n>Hybridmud Chat Proof-Of-Concept</h1>
+        <p class="lead" i18n>Is it possible to have one system serving at least both, browser and telnet client? We will find out with this proof-of-concept.
+        </p>
+    </div>
 </div>
 
 <div class="container">
-  <app-server-messages></app-server-messages>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
-    <div class="form-group">
-      <label for="username">Enter a username:</label>
-      <input type="text" [ngClass]="{'is-invalid': loginForm.controls['username'].invalid}" class="form-control" id="username"
-        placeholder="Enter username" [formControl]="loginForm.controls['username']">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+    <app-server-messages></app-server-messages>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+        <div class="form-group">
+            <label for="username" i18n>Enter a username:</label>
+            <input type="text" [ngClass]="{'is-invalid': loginForm.controls['username'].invalid}" class="form-control" id="username" i18n-placeholder placeholder="Enter username" [formControl]="loginForm.controls['username']">
+        </div>
+        <button type="submit" class="btn btn-primary" i18n>Submit</button>
+    </form>
 
-  <div class="alert alert-danger" role="alert" *ngIf="loginForm.controls['username'].dirty && loginForm.controls['username'].hasError('required')">
-    A username is required. Please enter one.
-  </div>
-  <div class="alert alert-danger" role="alert" *ngIf="loginForm.controls['username'].dirty && loginForm.controls['username'].hasError('server')">
-    {{serverError}}
-  </div>
+    <div class="alert alert-danger" role="alert" *ngIf="loginForm.controls['username'].dirty && loginForm.controls['username'].hasError('required')" i18n>
+        A username is required. Please enter one.
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="loginForm.controls['username'].dirty && loginForm.controls['username'].hasError('server')">
+        {{serverError}}
+    </div>
 </div>

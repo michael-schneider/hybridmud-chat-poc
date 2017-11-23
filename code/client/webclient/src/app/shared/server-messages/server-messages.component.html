@@ -1,12 +1,12 @@
 <div class="server-display">
-  <div class="card">
-    <div class="card-header">
-      Server Message Spy
+    <div class="card">
+        <div class="card-header" i18n>
+            Server Message Spy
+        </div>
+        <div #content class="card-body server-messages">
+            <div #messages class="card-text message-list" *ngFor="let serverMessage of serverMessages">
+                {{ serverMessage }}
+            </div>
+        </div>
     </div>
-    <div #content class="card-body server-messages">
-      <div #messages class="card-text message-list" *ngFor="let serverMessage of serverMessages">
-        {{ serverMessage }}
-      </div>
-    </div>
-  </div>
 </div>

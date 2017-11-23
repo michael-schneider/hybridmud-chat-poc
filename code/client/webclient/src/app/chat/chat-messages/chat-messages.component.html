@@ -1,5 +1,5 @@
 <div class="card chat-messages-display">
-    <div class="card-header">
+    <div class="card-header" i18n>
         Chat Messages
     </div>
     <div #content class="card-body chat-messages">
@@ -11,10 +11,10 @@
                 <b>{{ chatMessage.username }}</b> {{ chatMessage.message }}
             </div>
             <div *ngIf="chatMessage.type === chatMessageType.TELLTO">
-                <b>You tell {{ chatMessage.username }}:</b> {{ chatMessage.message }}
+                <b i18n>You tell {{ chatMessage.username }}:</b> {{ chatMessage.message }}
             </div>
             <div *ngIf="chatMessage.type === chatMessageType.TELLFROM">
-                <b>{{ chatMessage.username }} tells you:</b> {{ chatMessage.message }}
+                <b i18n>{{ chatMessage.username }} tells you:</b> {{ chatMessage.message }}
             </div>
             <div *ngIf="chatMessage.type === chatMessageType.ERROR">
                 <span class="errorMessage">{{ chatMessage.message }}</span>

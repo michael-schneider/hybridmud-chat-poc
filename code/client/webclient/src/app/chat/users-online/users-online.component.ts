@@ -36,9 +36,10 @@ import { DirectMessageUserService } from '../direct-message-user.service';
 })
 
 export class UsersOnlineComponent implements OnInit, OnDestroy {
-  private usersOnline: User[] = [];
+  public usersOnline: User[] = [];
+  public readonly currentUser: User;
+
   private readonly mudxmlSubscription: Subscription;
-  private readonly currentUser: User;
   private directMessageRecipient: User = null;
   private directMessageUserSubscription: Subscription;
 

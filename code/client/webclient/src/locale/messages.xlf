@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="2741b384658ac518e66601bcabfdc5576602e125" datatype="html">
+        <source>Created by SYS in 2017.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6e056d599ef17fd440c9423a2d4da81fefdfaddc" datatype="html">
+        <source>Hybridmud Chat Proof-Of-Concept</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\login\login.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="10dcf63d88568b073f7d6398b112f391fda574c0" datatype="html">
+        <source>Is it possible to have one system serving at least both, browser and telnet client? We will find out with this proof-of-concept.
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\login\login.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c99f15c537421d4a2dd1248862f86d8201b170c3" datatype="html">
+        <source>Enter a username:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\login\login.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="83bfab05f7184d83e1584537683fdae5d994190b" datatype="html">
+        <source>Enter username</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\login\login.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="71c77bb8cecdf11ec3eead24dd1ba506573fa9cd" datatype="html">
+        <source>Submit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\login\login.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0c084e9df33e52a26d4563e9d32b518001baf4e6" datatype="html">
+        <source>
+        A username is required. Please enter one.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\login\login.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bb694b49d408265c91c62799c2b3a7e3151c824d" datatype="html">
+        <source>Logout</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\chat\chat.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6712e46c8dc3e72bd2ee314ed2fbf3fcc199f5d5" datatype="html">
+        <source>Direct Message to <x id="INTERPOLATION" equiv-text="{{ directMessageRecipient.username }}"/>:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\chat\chat.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\chat\chat.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0910d8949d32ad4aa5757f4bea65baaed65b50b5" datatype="html">
+        <source>
+            Server Message Spy
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\shared\server-messages\server-messages.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4ffdc9bb28a4430a21788c46d1996ab72082d24d" datatype="html">
+        <source>
+        Chat Messages
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\chat\chat-messages\chat-messages.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0f5ddc0d5f63512c6168aa1d7c7bc19b1491d650" datatype="html">
+        <source>You tell <x id="INTERPOLATION" equiv-text="{{ chatMessage.username }}"/>:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\chat\chat-messages\chat-messages.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9a9ae676b397b32eb1278fc14da01d30afbc5723" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ chatMessage.username }}"/> tells you:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\chat\chat-messages\chat-messages.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f41b1f3bbeb4fb2563c03d92a28d62afcd6bb0f7" datatype="html">
+        <source>
+        Users Online
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\chat\users-online\users-online.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="52d00b8bcf26df7c342cf3437deb18886bccfcd4" datatype="html">
+        <source>Direct Message</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\chat\users-online\users-online.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="01946f9aac63f47f4e254cd745dd7ec1556ab9e1" datatype="html">
+        <source>End Direct Message</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\chat\users-online\users-online.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
