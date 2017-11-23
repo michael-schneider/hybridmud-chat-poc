@@ -35,9 +35,9 @@ public class UserStateChat implements UserState {
                         final String chatMessage = matcher.group(2);
                         User directMessageRecipient = Users.getInstance().getUserByUsername(username);
                         if (directMessageRecipient != null) {
-                            directMessageRecipient.send(MessageFormat.format("<chat type=\"tell\" direction=\"from\">{0}{1}</chat>",
+                            directMessageRecipient.send(MessageFormat.format("<chat type=\"tell\" direction=\"from\">{0}<message>{1}</message></chat>",
                                     user.toXml(),StringEscapeUtils.escapeXml11(chatMessage)));
-                            messageToUser=MessageFormat.format("<chat type=\"tell\" direction=\"to\">{0}{1}</chat>",
+                            messageToUser=MessageFormat.format("<chat type=\"tell\" direction=\"to\">{0}<message>{1}</message></chat>",
                                     directMessageRecipient.toXml(),StringEscapeUtils.escapeXml11(chatMessage));
 
                         } else {

@@ -60,11 +60,22 @@ export class ChatMessagesComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
     const chat = xmlMessage.nodeValue;
-    let type: ChatMessageType;
+    let type: ChatMessageType = null;
     switch (xmlDoc.documentElement.getAttribute('type')) {
       case 'status': type = ChatMessageType.STATUS;
         break;
-      case 'tell': type = ChatMessageType.TELL;
+      case 'tell':
+        const direction = xmlDoc.documentElement.getAttribute('direction');
+        if (direction === 'from') {
+          type = ChatMessageType.TELLFROM;
+        }
+        if (direction === 'to') {
+          type = ChatMessageType.TELLTO;
+        }
+        if (type === null) {
+          console.error('ERROR: Do not understand direction in ' + message.message + '.');
+          return;
+        }
         break;
       default: type = ChatMessageType.CHAT;
     }
