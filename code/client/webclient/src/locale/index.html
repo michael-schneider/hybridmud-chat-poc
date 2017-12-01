@@ -1,7 +1,25 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-    <title></title>
+    <title>Automatic Language Detector</title>
+    <meta charset="utf-8" />
+    <script>
+        const LANGUAGES = ['en', 'de']
+        let locale = localStorage.getItem('localeId');
+        if (!locale) {
+            locale = navigator.language;
+        }
+
+        locale = locale.substring(0, 2);
+
+        if (LANGUAGES.indexOf(locale) < 0) {
+            locale = LANGUAGES[0];
+        }
+        location.href = locale + "/";
+    </script>
 </head>
-<body>snazzlazz</body>
+
+<body></body>
+
 </html>
