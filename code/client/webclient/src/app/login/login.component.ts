@@ -23,6 +23,7 @@ import { MudxmlService } from '../shared/mudxml.service';
 export class LoginComponent implements OnInit, OnDestroy {
 
   public readonly loginForm: FormGroup;
+
   private readonly mudxmlSubscription: Subscription;
   private serverError = '';
 
@@ -54,7 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.mudxmlSubscription.unsubscribe();
   }
 
-  onSubmit({ username }: { username: string }): void {
+  public onSubmit({ username }: { username: string }): void {
     if (username && this.loginForm.valid) {
       this.mudxmlService.send(username);
     }

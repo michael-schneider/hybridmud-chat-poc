@@ -17,6 +17,7 @@ public class MudWebSocketServer extends WebSocketServer {
 
     public MudWebSocketServer(int port) throws UnknownHostException {
         super(new InetSocketAddress(port));
+
     }
 
     @Override
@@ -25,7 +26,7 @@ public class MudWebSocketServer extends WebSocketServer {
         Users.getInstance().addUser(conn, user);
 
         LOGGER.log(Level.INFO, MessageFormat.format("Connection established for {0}", user.getNetId()));
-
+        LOGGER.log(Level.INFO, MessageFormat.format("Language {0}", handshake.getFieldValue("Sec-WebSocket-Protocol")));
         //broadcast("new connection: " + handshake.getResourceDescriptor());
         System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + " entered the room!");
     }
