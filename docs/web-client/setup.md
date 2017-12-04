@@ -10,6 +10,8 @@ Second Problem: How to do routing in both, JJIT and AOT
 
 AOT is its whole project
 
+-> AOT becomes standard --> reference GIT Issue
+-> i18n is under development  --> reference GIT Issue
 
 
 Problem: How to give language to server: Protocol or resource descriptor.
