@@ -10,9 +10,11 @@ Second Problem: How to do routing in both, JJIT and AOT
 
 AOT is its whole project
 
--> AOT becomes standard --> reference GIT Issue
--> i18n is under development  --> reference GIT Issue
 
+-> i18n is under development  --> https://github.com/angular/angular/issues/16477
+https://medium.com/@intellix/production-ready-angular-cli-v1-0-0-with-i18n-and-localised-urls-1f3cf16cc204
+https://medium.com/@feloy/deploying-an-i18n-angular-app-with-angular-cli-fc788f17e358
+SystemJS vs Webpack
 
 Problem: How to give language to server: Protocol or resource descriptor.
 
