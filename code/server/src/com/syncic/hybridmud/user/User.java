@@ -5,6 +5,7 @@ import org.apache.commons.text.StringEscapeUtils;
 
 import java.text.MessageFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -17,9 +18,10 @@ public class User {
     private final Transmitter transmitter;
     private UserState userState = null;
 
+    private Locale locale;
+
     public User(Transmitter transmitter) {
         this.transmitter = transmitter;
-        userState = new UserStateLogin(this);
     }
 
     public UUID getId() {
@@ -63,6 +65,11 @@ public class User {
     public void setUserState(UserState userState) {
         this.userState = userState;
     }
+
+    public Locale getLocale() { return locale; }
+
+    public void setLocale(Locale locale) { this.locale = locale;  }
+
 
     public void logout() {
         transmitter.close();

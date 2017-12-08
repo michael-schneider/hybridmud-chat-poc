@@ -1,6 +1,7 @@
 package com.syncic.hybridmud.server.websocket;
 
 import com.syncic.hybridmud.user.User;
+import com.syncic.hybridmud.user.UserStateLogin;
 import com.syncic.hybridmud.user.Users;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -9,6 +10,7 @@ import org.java_websocket.server.WebSocketServer;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,13 +24,22 @@ public class MudWebSocketServer extends WebSocketServer {
 
     @Override
     public void onOpen(WebSocket conn, ClientHandshake handshake) {
-        User user = new User(new WebSocketTransmitter(conn));
+        final User user = new User(new WebSocketTransmitter(conn));
+
+        final String locale = getLocaleFromResourceDescriptor(handshake.getResourceDescriptor());
+        user.setLocale(Locale.forLanguageTag(locale));
+        user.setUserState(new UserStateLogin(user));
         Users.getInstance().addUser(conn, user);
 
+
         LOGGER.log(Level.INFO, MessageFormat.format("Connection established for {0}", user.getNetId()));
-        LOGGER.log(Level.INFO, MessageFormat.format("Language {0}", handshake.getFieldValue("Sec-WebSocket-Protocol")));
         //broadcast("new connection: " + handshake.getResourceDescriptor());
         System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + " entered the room!");
+    }
+
+    private String getLocaleFromResourceDescriptor(String resourceDescriptor) {
+        final String localeString = resourceDescriptor.substring(resourceDescriptor.lastIndexOf("/") + 1).trim();
+        return localeString;
     }
 
     @Override

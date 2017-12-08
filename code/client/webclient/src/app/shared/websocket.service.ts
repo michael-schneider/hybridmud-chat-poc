@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, LOCALE_ID, Inject } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
 import { environment } from '../../environments/environment';
@@ -10,8 +10,8 @@ const CHAT_URL = environment.wsUrl;
 export class WebsocketService {
     private readonly subject: Subject<string>;
 
-    public constructor() {
-        this.subject = new WebSocketSubject(CHAT_URL);
+    public constructor( @Inject(LOCALE_ID) private locale: string) {
+        this.subject = new WebSocketSubject(CHAT_URL + '/' + this.locale);
     }
 
     public send(data: string) {
