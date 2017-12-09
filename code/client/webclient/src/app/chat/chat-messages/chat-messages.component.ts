@@ -22,8 +22,10 @@ export class ChatMessagesComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private mudxmlService: MudxmlService) {
     this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'chat')
       .subscribe((message) => this.receiveMessage(message));
+    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'users')
+      .subscribe((message) => this.receiveUsersMessage(message));
     this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.type === 'error')
-      .subscribe((message) => this.receiveError(message));
+      .subscribe((message) => this.receiveErrorMessage(message));
   }
 
   ngOnInit() {
@@ -37,7 +39,7 @@ export class ChatMessagesComponent implements OnInit, OnDestroy, AfterViewInit {
     this.content.nativeElement.scrollTop = this.content.nativeElement.scrollHeight;
   }
 
-  receiveError(message: MudMessage) {
+  receiveErrorMessage(message: MudMessage) {
     const chatMessage: ChatMessage = {
       userId: null,
       username: null,
@@ -46,6 +48,24 @@ export class ChatMessagesComponent implements OnInit, OnDestroy, AfterViewInit {
     };
     console.log(chatMessage);
     this.chatMessages.push(chatMessage);
+  }
+
+  receiveUsersMessage(message: MudMessage) {
+    if (message.type === 'login' || message.type === 'logout') {
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(message.message, 'text/xml');
+
+      const username = xmlDoc.getElementsByTagName('user')[0].childNodes[0].nodeValue;
+      const userId = xmlDoc.getElementsByTagName('user')[0].getAttribute('id');
+
+      const chatMessage: ChatMessage = {
+        userId: userId,
+        username: username,
+        message: '',
+        type: message.type === 'login' ? ChatMessageType.LOGIN : ChatMessageType.LOGOUT
+      };
+      this.chatMessages.push(chatMessage);
+    }
   }
 
   private receiveMessage(message: MudMessage) {

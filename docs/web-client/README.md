@@ -15,3 +15,8 @@ D:\git\windows\GitHub\hybridmud-chat-poc\code\client\webclient (master)
 Upgrade from Angular 5.0.0 to 5.1.0:
 
 The Blog says it can use Typescript 2.5.3, but there is a bug that prevents it https://github.com/angular/angular-cli/issues/8768
+
+Favicon von Wholesalechat: http://www.favicon.cc/?action=icon_list&user_id=214390
+
+i18n: i18n: Able to use translation strings outside a template
+https://github.com/angular/angular/issues/11405

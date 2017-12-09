@@ -12,17 +12,17 @@ public class UserStateLogin implements UserState {
 
     public UserStateLogin(User user) {
         localeStrings = ResourceBundle.getBundle("ChatPoc", user.getLocale());
-        user.send(MessageFormat.format("<init>{0}</init>", localeStrings.getString("motd")));
-        user.send(MessageFormat.format("<login>{0}</login>", localeStrings.getString("pleaseEnterYourName")));
+        user.send("<init>" + localeStrings.getString("motd") + "</init>");
+        user.send("<login>" + localeStrings.getString("pleaseEnterYourName") + "</login>");
     }
 
     @Override
     public boolean receiveMessage(User user, String message) {
         String username = message.trim();
         if (!Users.isValidUsername(username)) {
-            user.send(MessageFormat.format("<login type=\"error\">{0}</login>", localeStrings.getString("errorUsernameNotValid")));
+            user.send("<login type=\"error\">" + localeStrings.getString("errorUsernameNotValid") + "</login>");
         } else if (Users.getInstance().isUsernameInUse(username)) {
-            user.send(MessageFormat.format("<login type=\"error\">{0}</login>", localeStrings.getString("errorUsernameInUse")));
+            user.send("<login type=\"error\">" + localeStrings.getString("errorUsernameInUse") + "</login>");
         } else {
             user.setLogindate(new Date());
             user.setUsername(username);

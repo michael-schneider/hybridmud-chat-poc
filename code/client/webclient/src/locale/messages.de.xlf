@@ -120,11 +120,27 @@
           <x id="INTERPOLATION" equiv-text="{{ chatMessage.username }}"/> tells you:                        
         </source>
         <target state="translated">
-          <x id="INTERPOLATION" equiv-text="{{ chatMessage.username }}"/> teilt ihnen mit:                      
+          <x id="INTERPOLATION" equiv-text="{{ chatMessage.username }}"/> teilt Ihnen mit:                      
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app\chat\chat-messages\chat-messages.component.ts</context>
           <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="50275346c38a3972b8351862b7a1493139980407" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ chatMessage.username }}"/> has logged in.</source>
+        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ chatMessage.username }}"/> hat eingeloggt.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/chat/chat-messages/chat-messages.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bc33b0f6620be46ff71ddcdd845bb5d46878c0c3" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ chatMessage.username }}"/> has logged out.</source>
+        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ chatMessage.username }}"/> has ausgeloggt.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/chat/chat-messages/chat-messages.component.ts</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f41b1f3bbeb4fb2563c03d92a28d62afcd6bb0f7" datatype="html">

@@ -4,14 +4,17 @@ import com.syncic.hybridmud.utils.Command;
 import org.apache.commons.text.StringEscapeUtils;
 
 import java.text.MessageFormat;
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserStateChat implements UserState {
+    private final ResourceBundle localeStrings;
 
     public UserStateChat(User user) {
-        user.send("<server>Welcome to the chat</server>");
-        user.send("<server>type '/help' for help or '/bye' to disconnect</server>");
+        localeStrings = ResourceBundle.getBundle("ChatPoc", user.getLocale());
+        user.send("<server>"+localeStrings.getString("welcomeToChat")+"</server>");
+        user.send("<server>"+localeStrings.getString("chatInstructions")+"</server>");
         Users.getInstance().broadcast(MessageFormat.format("<users type=\"login\">{0}</users>", user.toXml()));
 
     }
@@ -24,7 +27,7 @@ public class UserStateChat implements UserState {
             String messageToUser = "";
             switch (commandString) {
                 case "bye":
-                    user.send("<server>Bye!</server>");
+                    user.send("<server>"+localeStrings.getString("bye")+"</server>");
                     Users.getInstance().broadcast(MessageFormat.format("<users type=\"logout\">{0}</users>", user.toXml()));
                     return false;
                 case "tell":
@@ -41,11 +44,11 @@ public class UserStateChat implements UserState {
                                     directMessageRecipient.toXml(),StringEscapeUtils.escapeXml11(chatMessage));
 
                         } else {
-                            messageToUser = MessageFormat.format("<server type=\"error\">No such user \"{0}\"</server>",
+                            messageToUser = MessageFormat.format("<server type=\"error\">"+localeStrings.getString("errorNoSuchUser")+"</server>",
                                     StringEscapeUtils.escapeXml11(command.getCommandArgument()));
                         }
                     } else {
-                        messageToUser = MessageFormat.format("<server type=\"error\">Wrong Arguments to /tell: \"{0}\"</server>",
+                        messageToUser = MessageFormat.format("<server type=\"error\">"+localeStrings.getString("errorWrongArgumentsToTell")+"</server>",
                                 StringEscapeUtils.escapeXml11(command.getCommandArgument()));
                     }
                     break;
@@ -60,7 +63,7 @@ public class UserStateChat implements UserState {
                     messageToUser = usersString.toString();
                     break;
                 default:
-                    messageToUser = MessageFormat.format("<server type=\"error\">Do not understand \"{0}\"</server>",
+                    messageToUser = MessageFormat.format("<server type=\"error\">"+localeStrings.getString("errorInvalidCommand")+"</server>",
                             StringEscapeUtils.escapeXml11(message));
                     break;
             }

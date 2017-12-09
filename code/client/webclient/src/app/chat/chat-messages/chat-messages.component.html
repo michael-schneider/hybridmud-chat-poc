@@ -16,6 +16,12 @@
             <div *ngIf="chatMessage.type === chatMessageType.TELLFROM">
                 <b i18n>{{ chatMessage.username }} tells you:</b> {{ chatMessage.message }}
             </div>
+            <div *ngIf="chatMessage.type === chatMessageType.LOGIN">
+                <b i18n>{{ chatMessage.username }} has logged in.</b>
+            </div>
+            <div *ngIf="chatMessage.type === chatMessageType.LOGOUT">
+                <b i18n>{{ chatMessage.username }} has logged out.</b>
+            </div>
             <div *ngIf="chatMessage.type === chatMessageType.ERROR">
                 <span class="errorMessage">{{ chatMessage.message }}</span>
             </div>

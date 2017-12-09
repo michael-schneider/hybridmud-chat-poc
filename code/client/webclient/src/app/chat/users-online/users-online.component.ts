@@ -97,12 +97,6 @@ export class UsersOnlineComponent implements OnInit, OnDestroy {
     this.usersOnline = this.usersOnline.filter(userToRemove => {
       return userToRemove.userId !== user.userId;
     });
-    const mudMessage: MudMessage = {
-      domain: 'chat',
-      type: 'status',
-      message: '<chat type="status">' + xmlUser.outerHTML + '<message>has logged out.</message></chat>',
-    };
-    this.mudxmlService.next(mudMessage);
   }
 
   private userLogin(xmlUser: Element, user: User, messageType: string) {
@@ -110,15 +104,6 @@ export class UsersOnlineComponent implements OnInit, OnDestroy {
     this.makeUsersOnlineUnique();
     this.sortUsersOnline();
     this.removeCurrentUserFromAllUsers();
-    if (messageType === 'login') {
-      const mudMessage: MudMessage = {
-        domain: 'chat',
-        type: 'status',
-        message: '<chat type="status">' + xmlUser.outerHTML + '<message>has logged in.</message></chat>',
-      };
-      this.mudxmlService.next(mudMessage);
-    }
-
   }
 
   private makeUsersOnlineUnique() {

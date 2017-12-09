@@ -1,4 +1,4 @@
-export enum ChatMessageType {CHAT, TELLTO, TELLFROM, STATUS, ERROR}
+export enum ChatMessageType {CHAT, TELLTO, TELLFROM, STATUS, ERROR, LOGIN, LOGOUT}
 
 export class ChatMessage {
   readonly userId?: string;
