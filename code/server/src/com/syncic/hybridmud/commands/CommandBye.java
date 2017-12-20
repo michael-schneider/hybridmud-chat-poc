@@ -12,8 +12,8 @@ public class CommandBye extends Command {
         if(getCommandString(message).equals("bye")) {
             final ResourceBundle localeStrings = ResourceBundle.getBundle("ChatPoc", user.getLocale());
             user.send("<server>"+localeStrings.getString("bye")+"</server>");
-            user.logout();
             Users.getInstance().broadcast(MessageFormat.format("<users type=\"logout\">{0}</users>", user.toXml()));
+            user.logout();
             return true;
         }
         return false;

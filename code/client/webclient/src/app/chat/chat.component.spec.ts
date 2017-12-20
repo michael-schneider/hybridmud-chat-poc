@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ChatComponent } from './chat.component';
+import { ChatMessagesComponent } from './chat-messages/chat-messages.component';
+import { UsersOnlineComponent } from './users-online/users-online.component';
+
 
 describe('ChatComponent', () => {
   let component: ChatComponent;
@@ -8,7 +12,8 @@ describe('ChatComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChatComponent ]
+      declarations: [ ChatComponent, ChatMessagesComponent, UsersOnlineComponent ],
+      imports: [ FormsModule ]
     })
     .compileComponents();
   }));
