@@ -17,7 +17,7 @@ public class UserStateLogin implements UserState {
     }
 
     @Override
-    public boolean receiveMessage(User user, String message) {
+    public void receiveMessage(User user, String message) {
         String username = message.trim();
         if (!Users.isValidUsername(username)) {
             user.send("<login type=\"error\">" + localeStrings.getString("errorUsernameNotValid") + "</login>");
@@ -30,6 +30,5 @@ public class UserStateLogin implements UserState {
             user.send(MessageFormat.format("<login type=\"success\">" + localeStrings.getString("welcome") + "</login>", user.toXml()));
             user.setUserState(new UserStateChat(user));
         }
-        return true;
     }
 }
