@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public constructor(private websocketService: WebsocketService, private mudxmlService: MudxmlService,
     private currentUserService: CurrentUserService, private router: Router) {
-    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'init')
+    this.mudxmlSubscription = this.mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'init')
       .subscribe((message) => this.restart(message));
 
   }

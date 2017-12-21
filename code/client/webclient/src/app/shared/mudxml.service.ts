@@ -48,10 +48,6 @@ export class MudxmlService implements OnDestroy {
     this.subject.next(mudMessage);
   }
 
-  public next(mudMessage: MudMessage) {
-    this.subject.next(mudMessage);
-  }
-
   public send(data: string) {
     this.websocketService.send(data);
   }
