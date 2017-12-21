@@ -2,12 +2,24 @@ import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
+import { MudxmlService } from './shared/mudxml.service';
+import { MudxmlMockService } from '../../testing/mudxml-mock.service';
+import { WebsocketService } from './shared/websocket.service';
+import { WebsocketMockService } from '../../testing/websocket-mock.service';
+import { CurrentUserService } from './shared/current-user.service';
+import { CurrentUserMockService } from '../../testing/current-user-mock.service';
+
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
+      ],
+      providers: [
+        { provide: WebsocketService, useValue: WebsocketMockService},
+        { provide: MudxmlService, useValue: MudxmlMockService},
+        { provide: CurrentUserService, useValue: CurrentUserMockService},
       ],
       declarations: [
         AppComponent
