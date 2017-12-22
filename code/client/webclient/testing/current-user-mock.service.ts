@@ -8,7 +8,10 @@ import { User } from '../src/app/shared/user';
 
 @Injectable()
 export class CurrentUserMockService {
-    private currentUser: User;
+    private currentUser: User = {
+        userId: 'test-user-id',
+        username: 'testUser'
+    };
 
     constructor() { }
 

@@ -20,7 +20,7 @@ Favicon von Wholesalechat: http://www.favicon.cc/?action=icon_list&user_id=21439
 
 i18n: i18n: Able to use translation strings outside a template
 https://github.com/angular/angular/issues/11405
-
+https://dzone.com/articles/angular-localization-and-internationalization
 
 Tricky Bugs:
 - Edge cases like being in a direct message conversation with a user that logs out.
