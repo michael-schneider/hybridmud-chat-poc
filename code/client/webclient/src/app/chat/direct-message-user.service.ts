@@ -8,11 +8,11 @@ export class DirectMessageUserService {
 
   private subject = new Subject<User>();
 
-  directMessageUser(user: User) {
+  public directMessageUser(user: User) {
     this.subject.next(user);
   }
 
-  getDirectMessageUserObservable(): Observable<User> {
+  public getDirectMessageUserObservable(): Observable<User> {
     return this.subject.asObservable();
   }
 

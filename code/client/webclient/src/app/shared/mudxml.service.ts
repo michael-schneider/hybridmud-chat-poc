@@ -15,6 +15,16 @@ export class MudxmlService implements OnDestroy {
   private readonly websocketSubscription: Subscription;
   private readonly subject: Subject<MudMessage> = new Subject();
 
+  private static escapeXml(source: string) {
+    const entityMap = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+    };
+    return String(source).replace(/[&<>"']/g, s => entityMap[s]);
+  }
+
   constructor(private websocketService: WebsocketService) {
     this.websocketSubscription = websocketService.getWebsocketObservable().subscribe(message => this.receiveMessage(message),
       error => this.error(error));
@@ -43,7 +53,7 @@ export class MudxmlService implements OnDestroy {
     const mudMessage: MudMessage = {
       domain: 'server',
       type: 'error',
-      message: '<server type="error">Problem with websocket ' + CHAT_URL + '.</server>',
+      message: '<server type="error">Problem with websocket connection ' + MudxmlService.escapeXml(CHAT_URL) + '.</server>',
     };
     this.subject.next(mudMessage);
   }
@@ -55,6 +65,7 @@ export class MudxmlService implements OnDestroy {
   public getMudxmlObservable(): Observable<MudMessage> {
     return this.subject.asObservable();
   }
+
 
   public ngOnDestroy() {
     this.websocketSubscription.unsubscribe();

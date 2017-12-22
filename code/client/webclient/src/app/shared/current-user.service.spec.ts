@@ -34,6 +34,17 @@ describe('CurrentUserService', () => {
     expect(user.username).toBe('TestUser');
   }));
 
+  it('a current user means a user is logged in', inject([CurrentUserService], (service: CurrentUserService) => {
+    const loginMessage: MudMessage = {
+      domain: 'login',
+      type: 'success',
+      message: '<login type="success"><user id="test-user-id">TestUser</user></login>'
+    };
+
+    mudxmlMockService.next(loginMessage);
+    expect(service.isLoggedIn()).toBeTruthy();
+  }));
+
   it('should not extract the current user from a login failure message', inject([CurrentUserService], (service: CurrentUserService) => {
     const loginMessage: MudMessage = {
       domain: 'login',
@@ -46,4 +57,9 @@ describe('CurrentUserService', () => {
 
     expect(user).toBeUndefined();
   }));
+
+  it('no current users means no logged in user', inject([CurrentUserService], (service: CurrentUserService) => {
+    expect(service.isLoggedIn()).toBeFalsy();
+  }));
+
 });

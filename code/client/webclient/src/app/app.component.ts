@@ -16,7 +16,7 @@ import { MudMessage } from './shared/mud-message';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnDestroy {
   private readonly mudxmlSubscription: Subscription;
 
   public constructor(private websocketService: WebsocketService, private mudxmlService: MudxmlService,
@@ -26,14 +26,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
 
-  private restart(message: MudMessage) {
+  public restart(message: MudMessage) {
     // In case we are out of sync with the server
     if (this.router.url !== '/') {
       window.location.href = '/';
     }
-  }
-
-  public ngOnInit() {
   }
 
   public ngOnDestroy() {

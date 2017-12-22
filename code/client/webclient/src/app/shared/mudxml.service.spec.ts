@@ -33,12 +33,6 @@ describe('MudxmlService', () => {
         expect(mudMessage.type).toBe('type-attribute');
         expect(mudMessage.message).toBe('<tag type="type-attribute">inner text</tag>');
         testSubscription.unsubscribe();
-      },
-      () => {
-        testSubscription.unsubscribe();
-      },
-      () => {
-        testSubscription.unsubscribe();
       }
     );
     websocketMockService.send('<tag type="type-attribute">inner text</tag>');
@@ -51,14 +45,35 @@ describe('MudxmlService', () => {
         expect(mudMessage.type).toBe('information');
         expect(mudMessage.message).toBe('<tag>inner text</tag>');
         testSubscription.unsubscribe();
-      },
-      () => {
-        testSubscription.unsubscribe();
-      },
-      () => {
-        testSubscription.unsubscribe();
       }
     );
     websocketMockService.send('<tag>inner text</tag>');
+  }));
+
+  it('should send to the websocket', inject([MudxmlService], (service: MudxmlService) => {
+    const testSubscription = websocketMockService.getWebsocketObservable().subscribe(
+      (message: string) => {
+        expect(message).toBe('<test>success!</test>');
+        testSubscription.unsubscribe();
+      }
+    );
+    service.send('<test>success!</test>');
+  }));
+
+  it('an error should be transformed into a message', inject([MudxmlService], (service: MudxmlService) => {
+    const testSubscription = service.getMudxmlObservable().subscribe(
+      (mudMessage: MudMessage) => {
+        expect(mudMessage.domain).toBe('server');
+        expect(mudMessage.type).toBe('error');
+        expect(mudMessage.message)
+          .toBe('<server type="error">Problem with websocket connection ws://localhost:19100.</server>');
+        testSubscription.unsubscribe();
+      }
+    );
+    const error: Error = {
+      message: 'Test Error',
+      name: 'Named Error'
+    };
+    websocketMockService.sendError(error);
   }));
 });

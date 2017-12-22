@@ -19,4 +19,8 @@ export class WebsocketMockService {
     public getWebsocketObservable(): Observable<string> {
         return this.subject.asObservable();
     }
+
+    public sendError(error: Error) {
+        this.subject.error(error);
+    }
 }
