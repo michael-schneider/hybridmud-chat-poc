@@ -7,9 +7,9 @@ import { CurrentUserService } from '../shared/current-user.service';
 import { CurrentUserMockService } from '../../../testing/current-user-mock.service';
 
 describe('EnsureLoginService', () => {
-  beforeEach(() => {
-    const currentUserMockService: CurrentUserMockService = new CurrentUserMockService();
+  const currentUserMockService: CurrentUserMockService = new CurrentUserMockService();
 
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -23,5 +23,15 @@ describe('EnsureLoginService', () => {
 
   it('should be created', inject([EnsureLoginService], (service: EnsureLoginService) => {
     expect(service).toBeTruthy();
+  }));
+
+  it('should allow logged in users', inject([EnsureLoginService], (service: EnsureLoginService) => {
+    currentUserMockService.setLoggedIn(true);
+    expect(service.canActivate()).toBeTruthy();
+  }));
+
+  it('should not allow users that are not logged in', inject([EnsureLoginService], (service: EnsureLoginService) => {
+    currentUserMockService.setLoggedIn(false);
+    expect(service.canActivate()).toBeFalsy();
   }));
 });
