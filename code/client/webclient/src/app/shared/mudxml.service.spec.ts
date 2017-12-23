@@ -9,17 +9,18 @@ import { WebsocketService } from './websocket.service';
 import { WebsocketMockService } from '../../../testing/websocket-mock.service';
 
 describe('MudxmlService', () => {
-  const websocketMockService: WebsocketMockService = new WebsocketMockService();
+  let websocketMockService: WebsocketMockService;
 
   beforeEach(() => {
-
+    const websocketMockServiceMock: WebsocketMockService = new WebsocketMockService();
     TestBed.configureTestingModule({
       providers: [
         MudxmlService,
-        { provide: WebsocketService, useValue: websocketMockService },
+        { provide: WebsocketService, useValue: websocketMockServiceMock },
       ]
     });
 
+    websocketMockService = TestBed.get(WebsocketService);
   });
 
   it('should be created', inject([MudxmlService], (service: MudxmlService) => {

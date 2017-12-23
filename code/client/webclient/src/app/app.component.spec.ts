@@ -12,26 +12,33 @@ import { CurrentUserMockService } from '../../testing/current-user-mock.service'
 
 
 describe('AppComponent', () => {
-  const mudxmlMockService: MudxmlMockService = new MudxmlMockService();
-  const websocketMockService: WebsocketMockService = new WebsocketMockService();
-  const currentUserMockService: CurrentUserMockService = new CurrentUserMockService();
+  let mudxmlMockService: any;
+  let websocketMockService: any;
+  let currentUserMockService: any;
 
   beforeEach(async(() => {
+    const mudxmlMockServiceMock: MudxmlMockService = new MudxmlMockService();
+    const websocketMockServiceMock: WebsocketMockService = new WebsocketMockService();
+    const currentUserMockServiceMock: CurrentUserMockService = new CurrentUserMockService();
 
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
       ],
       providers: [
-        { provide: WebsocketService, useValue: websocketMockService },
-        { provide: MudxmlService, useValue: mudxmlMockService },
-        { provide: CurrentUserService, useValue: currentUserMockService },
+        { provide: WebsocketService, useValue: websocketMockServiceMock },
+        { provide: MudxmlService, useValue: mudxmlMockServiceMock },
+        { provide: CurrentUserService, useValue: currentUserMockServiceMock },
       ],
       declarations: [
         AppComponent
       ],
     }).compileComponents();
 
+    const fixture = TestBed.createComponent(AppComponent);
+    mudxmlMockService = fixture.debugElement.injector.get(MudxmlService);
+    websocketMockService = fixture.debugElement.injector.get(WebsocketService);
+    currentUserMockService = fixture.debugElement.injector.get(CurrentUserService);
   }));
 
   it('should create the app', async(() => {

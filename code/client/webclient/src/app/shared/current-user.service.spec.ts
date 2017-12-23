@@ -7,14 +7,18 @@ import { MudxmlService } from '../shared/mudxml.service';
 import { MudxmlMockService } from '../../../testing/mudxml-mock.service';
 
 describe('CurrentUserService', () => {
-  const mudxmlMockService: MudxmlMockService = new MudxmlMockService();
+  let mudxmlMockService: MudxmlMockService;
 
   beforeEach(() => {
+    const mudxmlMockServiceMock: MudxmlMockService = new MudxmlMockService();
+
     TestBed.configureTestingModule({
       providers: [CurrentUserService,
-        { provide: MudxmlService, useValue: mudxmlMockService },
+        { provide: MudxmlService, useValue: mudxmlMockServiceMock },
       ]
     });
+
+    mudxmlMockService = TestBed.get(MudxmlService);
   });
 
   it('should be created', inject([CurrentUserService], (service: CurrentUserService) => {
