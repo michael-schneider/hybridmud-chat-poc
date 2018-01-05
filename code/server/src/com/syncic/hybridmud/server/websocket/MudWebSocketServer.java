@@ -32,7 +32,7 @@ public class MudWebSocketServer extends WebSocketServer {
         Users.getInstance().addUser(conn, user);
 
 
-        LOGGER.log(Level.INFO, MessageFormat.format("Connection established for {0}", user.getNetId()));
+        LOGGER.log(Level.INFO, MessageFormat.format("Websocket connection established for {0}", user.getNetId()));
         //broadcast("new connection: " + handshake.getResourceDescriptor());
         System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + " entered the room!");
     }
@@ -45,13 +45,13 @@ public class MudWebSocketServer extends WebSocketServer {
     @Override
     public void onClose(WebSocket conn, int code, String reason, boolean remote) {
         Users users = Users.getInstance();
-        LOGGER.log(Level.INFO, MessageFormat.format("Connection closed for {0}", users.getUserByWebSocket(conn).getNetId()));
+        LOGGER.log(Level.INFO, MessageFormat.format("Websocket connection closed for {0}", users.getUserByWebSocket(conn).getNetId()));
         Users.getInstance().removeUserByWebSocket(conn);
     }
 
     @Override
     public void onMessage(WebSocket conn, String message) {
-        LOGGER.log(Level.INFO, MessageFormat.format("Message from {0}: {1}", conn, message));
+        LOGGER.log(Level.INFO, MessageFormat.format("Websocket message from {0}: {1}", conn, message));
         Users.getInstance().getUserByWebSocket(conn).receive(message);
     }
 
@@ -65,6 +65,6 @@ public class MudWebSocketServer extends WebSocketServer {
 
     @Override
     public void onStart() {
-        LOGGER.log(Level.INFO, MessageFormat.format("Server started on port {0}", String.valueOf(getPort())));
+        LOGGER.log(Level.INFO, MessageFormat.format("Websocket server started on port {0}", String.valueOf(getPort())));
     }
 }

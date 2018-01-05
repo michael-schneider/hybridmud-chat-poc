@@ -23,6 +23,4 @@ export class MudxmlMockService {
     public next(mudMessage: MudMessage) {
         this.subject.next(mudMessage);
     }
-
-
 }

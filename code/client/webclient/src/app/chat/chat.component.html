@@ -7,12 +7,12 @@
     </div>
 </div>
 <div class="row">
-    <div class="col col-md-3 mb-3"><button (click)="logout()" class="btn btn-warning" i18n>Logout</button></div>
+    <div class="col col-md-3 mb-3"><button (click)="logout()" class="btn btn-warning" id="logoutButton" i18n>Logout</button></div>
     <div class="col col-md-9 col-md-offset-3">
         <form class="form-inline">
-            <label *ngIf="directMessageRecipient !== null" for="messageInput" class="mb-2 mr-sm-2 mb-sm-0" [@directMessage] i18n>Direct Message to {{ directMessageRecipient.username }}:</label>
+            <label *ngIf="directMessageRecipient !== null" for="messageInput" class="mb-2 mr-sm-2 mb-sm-0" [@directMessage] id="directMessageLabel" i18n>Direct Message to {{ directMessageRecipient.username }}:</label>
             <input [(ngModel)]="message" id="messageInput" class="form-control mb-2 mr-sm-2 mb-sm-0" [ngModelOptions]="{standalone: true}">
-            <input (click)="sendMessage()" type="submit" i18n-value value="Send" class="btn btn-primary">
+            <input (click)="sendMessage()" type="submit" i18n-value value="Send" id="chatButton" class="btn btn-primary">
         </form>
     </div>
 </div>

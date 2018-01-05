@@ -61,7 +61,7 @@ describe('MudxmlService', () => {
     service.send('<test>success!</test>');
   }));
 
-  it('an error should be transformed into a message', inject([MudxmlService], (service: MudxmlService) => {
+  it('should transfer an error into a message', inject([MudxmlService], (service: MudxmlService) => {
     const testSubscription = service.getMudxmlObservable().subscribe(
       (mudMessage: MudMessage) => {
         expect(mudMessage.domain).toBe('server');

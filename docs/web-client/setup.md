@@ -34,3 +34,10 @@ To test locally:
 
 
    ng serve --aot --i18nFile=src/locale/messages.de.xlf --i18nFormat=xlf --locale=de ng serve --aot --i18nFile=src/locale/messages.de.xlf --i18nFormat=xlf --locale=de
+
+
+
+
+   Tests with code-coverage
+   ng test --code-coverage
+   Open webclient/coverage/index.html in browser.
