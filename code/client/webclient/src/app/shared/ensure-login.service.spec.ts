@@ -24,7 +24,7 @@ describe('EnsureLoginService', () => {
     currentUserMockService = TestBed.get(CurrentUserService);
   });
 
-  it('should be created', inject([EnsureLoginService], (service: EnsureLoginService) => {
+  it('should create', inject([EnsureLoginService], (service: EnsureLoginService) => {
     expect(service).toBeTruthy();
   }));
 

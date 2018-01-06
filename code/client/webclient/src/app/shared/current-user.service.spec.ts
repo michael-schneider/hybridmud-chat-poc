@@ -21,7 +21,7 @@ describe('CurrentUserService', () => {
     mudxmlMockService = TestBed.get(MudxmlService);
   });
 
-  it('should be created', inject([CurrentUserService], (service: CurrentUserService) => {
+  it('should create', inject([CurrentUserService], (service: CurrentUserService) => {
     expect(service).toBeTruthy();
   }));
 

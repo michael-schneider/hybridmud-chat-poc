@@ -7,9 +7,6 @@
             <div *ngIf="chatMessage.type === chatMessageType.CHAT">
                 <b>{{ chatMessage.username }}:</b> {{ chatMessage.message }}
             </div>
-            <div *ngIf="chatMessage.type === chatMessageType.STATUS">
-                <b>{{ chatMessage.username }}</b> {{ chatMessage.message }}
-            </div>
             <div *ngIf="chatMessage.type === chatMessageType.TELLTO">
                 <b i18n>You tell {{ chatMessage.username }}:</b> {{ chatMessage.message }}
             </div>

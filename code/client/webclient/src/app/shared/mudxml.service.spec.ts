@@ -23,7 +23,7 @@ describe('MudxmlService', () => {
     websocketMockService = TestBed.get(WebsocketService);
   });
 
-  it('should be created', inject([MudxmlService], (service: MudxmlService) => {
+  it('should create', inject([MudxmlService], (service: MudxmlService) => {
     expect(service).toBeTruthy();
   }));
 

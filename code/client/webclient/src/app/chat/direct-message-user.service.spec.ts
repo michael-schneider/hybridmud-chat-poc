@@ -11,7 +11,7 @@ describe('DirectMessageUserService', () => {
     });
   });
 
-  it('should be created', inject([DirectMessageUserService], (service: DirectMessageUserService) => {
+  it('should create', inject([DirectMessageUserService], (service: DirectMessageUserService) => {
     expect(service).toBeTruthy();
   }));
 
