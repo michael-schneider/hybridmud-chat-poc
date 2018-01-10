@@ -81,21 +81,18 @@ export class ChatMessagesComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     const chat = xmlMessage.nodeValue;
     let type: ChatMessageType = null;
-    switch (xmlDoc.documentElement.getAttribute('type')) {
-      case 'tell':
-        const direction = xmlDoc.documentElement.getAttribute('direction');
-        if (direction === 'from') {
-          type = ChatMessageType.TELLFROM;
-        }
-        if (direction === 'to') {
-          type = ChatMessageType.TELLTO;
-        }
-        if (type === null) {
-          console.error('ERROR: Do not understand direction in ' + message.message + '.');
-          return;
-        }
-        break;
-      default: type = ChatMessageType.CHAT;
+    if (xmlDoc.documentElement.getAttribute('type') === 'tell') {
+      const direction = xmlDoc.documentElement.getAttribute('direction');
+      if (direction === 'from') {
+        type = ChatMessageType.TELLFROM;
+      } else if (direction === 'to') {
+        type = ChatMessageType.TELLTO;
+      } else {
+        console.error('ERROR: Do not understand direction in ' + message.message + '.');
+        return;
+      }
+    } else {
+      type = ChatMessageType.CHAT;
     }
 
     const chatMessage: ChatMessage = {

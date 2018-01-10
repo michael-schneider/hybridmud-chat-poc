@@ -178,10 +178,6 @@ describe('ChatMessagesComponent', () => {
     expect(messageShown.nativeElement.textContent).toContain('testuser: Test Message');
   });
 
-  function getLastEntryFrom(chatMessagesArray: ChatMessage[]): ChatMessage {
-    return chatMessagesArray[chatMessagesArray.length - 1];
-  }
-
   it('should not show a message if the message is empty', () => {
     const message: MudMessage = {
       domain: 'chat',
@@ -195,4 +191,58 @@ describe('ChatMessagesComponent', () => {
     const messageShown = fixture.debugElement.query(By.css('.message-list div'));
     expect(messageShown).toBeFalsy();
   });
+
+  it('should show a message with a tell to another user to the chat-messages as tell to', () => {
+    const message: MudMessage = {
+      domain: 'chat',
+      message: '<chat type="tell" direction="to"><user id="uid0">testuser</user><message>Hello Test!</message></chat>',
+      type: 'tell'
+    };
+    mudxmlMockService.next(message);
+
+    fixture.detectChanges();
+
+    const userShown = fixture.debugElement.query(By.css('.message-list b'));
+    expect(userShown).toBeTruthy();
+    expect(userShown.nativeElement.textContent).toBe('You tell testuser:');
+
+    const messageShown = fixture.debugElement.query(By.css('.message-list div'));
+    expect(messageShown).toBeTruthy();
+    expect(messageShown.nativeElement.textContent).toContain('Hello Test!');
+  });
+
+  it('should show a message with a tell from another user to the chat-messages as tell from', () => {
+    const message: MudMessage = {
+      domain: 'chat',
+      message: '<chat type="tell" direction="from"><user id="uid0">testuser</user><message>Hello Test!</message></chat>',
+      type: 'tell'
+    };
+    mudxmlMockService.next(message);
+
+    fixture.detectChanges();
+
+    const userShown = fixture.debugElement.query(By.css('.message-list b'));
+    expect(userShown).toBeTruthy();
+    expect(userShown.nativeElement.textContent).toBe('testuser tells you:');
+
+    const messageShown = fixture.debugElement.query(By.css('.message-list div'));
+    expect(messageShown).toBeTruthy();
+    expect(messageShown.nativeElement.textContent).toContain('Hello Test!');
+  });
+
+  it('should ignore tell messages with wrong direction', () => {
+    const message: MudMessage = {
+      domain: 'chat',
+      message: '<chat type="tell" direction="around"><user id="uid0">testuser</user><message>Hello Test!</message></chat>',
+      type: 'tell'
+    };
+    mudxmlMockService.next(message);
+
+    expect(component.chatMessages.length).toBe(0);
+  });
+
+
+  function getLastEntryFrom(chatMessagesArray: ChatMessage[]): ChatMessage {
+    return chatMessagesArray[chatMessagesArray.length - 1];
+  }
 });

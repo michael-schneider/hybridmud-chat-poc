@@ -24,3 +24,5 @@ https://dzone.com/articles/angular-localization-and-internationalization
 
 Tricky Bugs:
 - Edge cases like being in a direct message conversation with a user that logs out.
+
+Tests: window.location could not be tested easily.

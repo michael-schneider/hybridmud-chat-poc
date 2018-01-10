@@ -6,13 +6,13 @@
 
         <div class="card current-user text-center bg-light">
             <div class="card-body">
-                <h5 class="card-title"> {{ currentUser.username }} </h5>
+                <h5 class="card-title current-user"> {{ currentUser.username }} </h5>
             </div>
         </div>
 
         <div class="card text-center" *ngFor="let userOnline of usersOnline" [@userChange] [class.not-dm]="directMessageRecipient !== null && directMessageRecipient !== userOnline">
             <div class="card-body mx-auto">
-                <h5 class="card-title"> {{ userOnline.username }} </h5>
+                <h5 class="card-title other-user"> {{ userOnline.username }} </h5>
                 <button *ngIf="directMessageRecipient !== userOnline" (click)="directMessageTo(userOnline)" type="button" class="btn btn-primary btn-sm" i18n>Direct Message</button>
                 <button *ngIf="directMessageRecipient === userOnline" (click)="directMessageEnd()" type="button" class="btn btn-warning btn-sm" i18n>End Direct Message</button>
             </div>
