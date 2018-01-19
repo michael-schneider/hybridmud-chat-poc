@@ -26,3 +26,6 @@ Tricky Bugs:
 - Edge cases like being in a direct message conversation with a user that logs out.
 
 Tests: window.location could not be tested easily.
+
+NGRX would have been nice: https://medium.com/@nomanbinhussein/getting-started-with-ngrx-5cec2788b25f
+Not everything together, keep complexity low.
