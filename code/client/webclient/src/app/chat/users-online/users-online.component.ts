@@ -94,7 +94,7 @@ export class UsersOnlineComponent implements OnInit, OnDestroy {
   }
 
   private userLogout(xmlUser: Element, user: User) {
-    if (this.directMessageRecipient.userId === user.userId) {
+    if (this.directMessageRecipient !== null && this.directMessageRecipient.userId === user.userId) {
       this.directMessageEnd();
     }
 
