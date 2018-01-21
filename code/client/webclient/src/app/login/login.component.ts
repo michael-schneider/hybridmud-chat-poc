@@ -44,10 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.serverError = message.message.replace(/<[^>]*>/g, '');
     }
     if (message.type === 'success') {
-      if (this.loginForm.valid) {
-        this.serverError = '';
-        this.router.navigate(['/chat/']);
-      }
+      this.router.navigate(['/chat/']);
     }
   }
 

@@ -8,7 +8,7 @@ import { MudMessage } from '../src/app/shared/mud-message';
 export class MudxmlMockService {
     private readonly subject: Subject<MudMessage> = new Subject();
 
-    private sentData: string;
+    private sentData: string = null;
 
     constructor() { }
 
@@ -23,4 +23,6 @@ export class MudxmlMockService {
     public next(mudMessage: MudMessage) {
         this.subject.next(mudMessage);
     }
+
+    public getSentData(): string { return this.sentData; }
 }
