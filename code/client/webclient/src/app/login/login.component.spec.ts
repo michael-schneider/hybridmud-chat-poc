@@ -32,7 +32,7 @@ describe('LoginComponent', () => {
         FormsModule
       ],
       providers: [
-        { provide: MudxmlService, useValue: mudxmlMockServiceInject }
+        { provide: MudxmlService, useValue: mudxmlMockServiceInject },
         { provide: EnsureLoginService, useValue: { canActivate: function () { return true; } } }
       ],
       declarations: [LoginComponent, ChatComponent],

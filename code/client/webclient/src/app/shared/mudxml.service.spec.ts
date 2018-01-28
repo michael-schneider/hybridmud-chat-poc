@@ -39,7 +39,7 @@ describe('MudxmlService', () => {
     websocketMockService.send('<tag type="type-attribute">inner text</tag>');
   }));
 
-  it('should have information as default type', inject([MudxmlService], (service: MudxmlService) => {
+  it('should have "information" as default type', inject([MudxmlService], (service: MudxmlService) => {
     const testSubscription = service.getMudxmlObservable().subscribe(
       (mudMessage: MudMessage) => {
         expect(mudMessage.domain).toBe('tag');

@@ -38,7 +38,7 @@ describe('CurrentUserService', () => {
     expect(user.username).toBe('TestUser');
   }));
 
-  it('should acceptr a current user as logged in', inject([CurrentUserService], (service: CurrentUserService) => {
+  it('should accept a current user as logged in', inject([CurrentUserService], (service: CurrentUserService) => {
     const loginMessage: MudMessage = {
       domain: 'login',
       type: 'success',
