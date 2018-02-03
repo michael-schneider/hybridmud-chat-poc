@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit({ username }: { username: string }): void {
+    this.loginForm.controls['username'].markAsDirty();
     if (username && this.loginForm.valid) {
       this.mudxmlService.send(username);
     }

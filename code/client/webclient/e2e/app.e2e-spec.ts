@@ -1,14 +1,24 @@
-import { AppPage } from './app.po';
+import { LoginPage } from './app.po';
 
-describe('webclient App', () => {
-  let page: AppPage;
+describe('the login', () => {
+  let loginPage: LoginPage;
 
   beforeEach(() => {
-    page = new AppPage();
+    loginPage = new LoginPage();
   });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+  it('should display an error if the username has whitespace', () => {
+    loginPage.navigateTo();
+    loginPage.writeUsernameField('with spaces');
+    loginPage.clickSubmit();
+    expect(loginPage.getServerErrorText()).toEqual('Username is not valid. Please reenter.');
   });
+
+  it('should display an error if there is no username', () => {
+    loginPage.navigateTo();
+    loginPage.writeUsernameField('');
+    loginPage.clickSubmit();
+    expect(loginPage.getLocalErrorText()).toEqual('A username is required. Please enter one.');
+  });
+
 });

@@ -29,3 +29,5 @@ Tests: window.location could not be tested easily.
 
 NGRX would have been nice: https://medium.com/@nomanbinhussein/getting-started-with-ngrx-5cec2788b25f
 Not everything together, keep complexity low.
+
+Debugging e2e is broken with node 8: https://github.com/angular/protractor/issues/4307

@@ -1,11 +1,24 @@
 import { browser, by, element } from 'protractor';
+import { Element } from '@angular/compiler';
 
-export class AppPage {
+export class LoginPage {
   navigateTo() {
     return browser.get('/');
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  writeUsernameField(username: string): void {
+    element(by.css('#username')).sendKeys(username);
+  }
+
+  clickSubmit(): void {
+    element(by.css('#submit')).click();
+  }
+
+  getLocalErrorText() {
+    return element(by.css('.error-local')).getText();
+  }
+
+  getServerErrorText() {
+    return element(by.css('.error-server')).getText();
   }
 }
