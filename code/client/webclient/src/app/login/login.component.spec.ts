@@ -77,7 +77,7 @@ describe('LoginComponent', () => {
 
   it('should not submit the loginname if loginname is empty', () => {
     const loginField: HTMLInputElement = fixture.debugElement.query(By.css('#username')).nativeElement;
-    const submitButton: HTMLElement = fixture.debugElement.query(By.css('#submit')).nativeElement;
+    const submitButton: HTMLElement = fixture.debugElement.query(By.css('#submitButton')).nativeElement;
 
     component.loginForm.controls['username'].setValue('');
     fixture.detectChanges();
@@ -89,7 +89,7 @@ describe('LoginComponent', () => {
 
   it('should display an error if loginname is empty', () => {
     const loginField: HTMLInputElement = fixture.debugElement.query(By.css('#username')).nativeElement;
-    const submitButton: HTMLElement = fixture.debugElement.query(By.css('#submit')).nativeElement;
+    const submitButton: HTMLElement = fixture.debugElement.query(By.css('#submitButton')).nativeElement;
 
     component.loginForm.controls['username'].markAsDirty();
     component.loginForm.controls['username'].setValue('');
@@ -103,7 +103,7 @@ describe('LoginComponent', () => {
 
   it('should send data if loginname is ok', () => {
     const loginField: HTMLInputElement = fixture.debugElement.query(By.css('#username')).nativeElement;
-    const submitButton: HTMLElement = fixture.debugElement.query(By.css('#submit')).nativeElement;
+    const submitButton: HTMLElement = fixture.debugElement.query(By.css('#submitButton')).nativeElement;
 
     component.loginForm.controls['username'].setValue('TestUser098');
     fixture.detectChanges();

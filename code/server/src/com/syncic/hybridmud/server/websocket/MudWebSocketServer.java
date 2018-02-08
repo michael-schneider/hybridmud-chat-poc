@@ -46,7 +46,11 @@ public class MudWebSocketServer extends WebSocketServer {
     public void onClose(WebSocket conn, int code, String reason, boolean remote) {
         Users users = Users.getInstance();
         LOGGER.log(Level.INFO, MessageFormat.format("Websocket connection closed for {0}", users.getUserByWebSocket(conn).getNetId()));
+        final User user = users.getUserByWebSocket(conn);
         Users.getInstance().removeUserByWebSocket(conn);
+        if (user.getLogindate() != null) {
+            Users.getInstance().broadcast(MessageFormat.format("<users type=\"logout\">{0}</users>", user.toXml()));
+        }
     }
 
     @Override

@@ -2,7 +2,9 @@ package com.syncic.hybridmud.server.websocket;
 
 import com.syncic.hybridmud.server.Transmitter;
 import org.java_websocket.WebSocket;
+import org.java_websocket.exceptions.WebsocketNotConnectedException;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WebSocketTransmitter implements Transmitter {
@@ -15,8 +17,12 @@ public class WebSocketTransmitter implements Transmitter {
 
     @Override
     public void send(String message) {
-        // We have to JSONIFY it!!! RXJS wants us to!
-        webSocket.send("\""+message.replace("\"","\\\"")+"\"");
+        try {
+            // We have to JSONIFY it!!! RXJS wants us to!
+            webSocket.send("\"" + message.replace("\"", "\\\"") + "\"");
+        } catch (WebsocketNotConnectedException ex) {
+            LOGGER.log(Level.WARNING, "Sending to closed websocket", ex);
+        }
     }
 
     @Override

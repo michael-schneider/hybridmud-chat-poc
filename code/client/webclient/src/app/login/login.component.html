@@ -13,7 +13,7 @@
             <label for="username" i18n>Enter a username:</label>
             <input type="text" [ngClass]="{'is-invalid': loginForm.controls['username'].invalid}" class="form-control" id="username" i18n-placeholder placeholder="Enter username" [formControl]="loginForm.controls['username']">
         </div>
-        <button type="submit" id="submit" class="btn btn-primary" i18n>Submit</button>
+        <button type="submit" id="submitButton" class="btn btn-primary" i18n>Submit</button>
     </form>
 
     <div class="alert alert-danger error-local" role="alert" *ngIf="loginForm.controls['username'].dirty && loginForm.controls['username'].hasError('required')" i18n>
