@@ -33,4 +33,39 @@ describe('The chat page', () => {
     expect(chatPage.getCopyrightText()).toEqual('Created by SYS in 2018.');
   });
 
+  it('should be possible to chat', function () {
+    newBrowser = browser.forkNewDriverInstance(true, true); // Same URL as "browser"
+    const secondLoginPage = new LoginPage(newBrowser);
+
+    const chatPage = loginPage.loginAs('ChatUser');
+    expect(chatPage.checkPage()).toBeTruthy();
+
+    const secondChatPage = secondLoginPage.loginAs('SecondChatUser');
+    expect(secondChatPage.checkPage()).toBeTruthy();
+
+    chatPage.writeChatAndSend('Hi, how are you doing?');
+    secondChatPage.getChatContents().then(
+      function(messages: string[]) {
+        expect(messages.length).toBe(2);
+        expect(messages[0]).toBe('SecondChatUser has logged in.');
+        expect(messages[1]).toBe('ChatUser: Hi, how are you doing?');
+      }
+    );
+
+    secondChatPage.writeChatAndSend('I am Well, how are you?');
+    chatPage.getChatContents().then(
+      function(messages: string[]) {
+        expect(messages.length).toBe(4);
+        expect(messages[0]).toBe('ChatUser has logged in.');
+        expect(messages[1]).toBe('SecondChatUser has logged in.');
+        expect(messages[2]).toBe('ChatUser: Hi, how are you doing?');
+        expect(messages[3]).toBe('SecondChatUser: I am Well, how are you?');
+      }
+    );
+
+  });
+
+  // Direct
+  // Login and closing times shall have the name only once!
+
 });

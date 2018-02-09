@@ -24,6 +24,17 @@ export class ChatPage {
 
   }
 
+  writeChatAndSend(message: string) {
+    this.browser.element(by.css('#messageInput')).sendKeys(message);
+    this.browser.element(by.css('#chatButton')).click();
+  }
+
+  async getChatContents(): Promise<string[]> {
+    const messageContent = await this.browser.element(by.css('.chat-messages')).getText();
+    const messagesArray = messageContent.split('\n');
+    return messagesArray;
+  }
+
   clickLogout(): void {
     element(by.css('#logoutButton')).click();
   }

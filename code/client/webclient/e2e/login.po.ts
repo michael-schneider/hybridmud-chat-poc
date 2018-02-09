@@ -34,4 +34,11 @@ export class LoginPage {
   getCopyrightText() {
     return this.browser.element(by.css('footer')).getText();
   }
+
+  loginAs(username: string): ChatPage {
+    this.navigateTo();
+    this.writeUsernameField(username);
+    const chatPage = this.clickSubmit();
+    return chatPage;
+  }
 }

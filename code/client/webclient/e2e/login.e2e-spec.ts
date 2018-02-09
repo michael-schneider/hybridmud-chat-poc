@@ -27,23 +27,19 @@ describe('The login page', () => {
   });
 
   it('should display an error if the username has whitespace', () => {
-    loginPage.navigateTo();
-    loginPage.writeUsernameField('with spaces');
-    const chatPage = loginPage.clickSubmit();
+    const chatPage = loginPage.loginAs('with spaces');
     expect(loginPage.getServerErrorText()).toEqual('Username is not valid. Please reenter.');
     expect(chatPage.checkPage()).toBeFalsy();
   });
 
   it('should display an error if there is no username', () => {
-    loginPage.navigateTo();
-    loginPage.writeUsernameField('');
-    const chatPage = loginPage.clickSubmit();
+    const chatPage = loginPage.loginAs('');
     expect(loginPage.getLocalErrorText()).toEqual('A username is required. Please enter one.');
     expect(chatPage.checkPage()).toBeFalsy();
   });
 
   it('should be able to fork browsers', function () {
-    browser.get('index.html');
+    browser.get('/');
     newBrowser = browser.forkNewDriverInstance();
     expect(newBrowser).not.toEqual(browser);
     expect(newBrowser.driver).not.toEqual(browser.driver);
@@ -56,22 +52,15 @@ describe('The login page', () => {
   });
 
   it('should display an error if the username is already taken', () => {
-    loginPage.navigateTo();
-    newBrowser = browser.forkNewDriverInstance(true, true); // Same URL as "Browser"
+    newBrowser = browser.forkNewDriverInstance(true, true); // Same URL as "browser"
+    const secondLoginPage = new LoginPage(newBrowser);
 
-    loginPage.writeUsernameField('Testuser000');
-    const chatPage = loginPage.clickSubmit();
+    const chatPage = loginPage.loginAs('Testuser000');
     expect(chatPage.checkPage()).toBeTruthy();
 
-    const secondLoginPage = new LoginPage(newBrowser);
-    secondLoginPage.writeUsernameField('Testuser000');
-
-    secondLoginPage.clickSubmit();
+    const secondChatPage = secondLoginPage.loginAs('Testuser000');
+    expect(secondChatPage.checkPage()).toBeFalsy();
 
     expect(secondLoginPage.getServerErrorText()).toEqual('Username is in use, please use a different one.');
   });
-
-
-  // Login and closing times shall have the name only once!
-
 });
