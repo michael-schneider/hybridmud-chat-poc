@@ -1,6 +1,8 @@
+
+import {filter} from 'rxjs/operators';
 import { Component, OnInit, ViewChild, QueryList, ElementRef, ViewChildren, AfterViewInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/filter';
+import { Subscription } from 'rxjs';
+
 
 import { MudxmlService } from '../../shared/mudxml.service';
 import { MudMessage } from '../../shared/mud-message';
@@ -20,11 +22,11 @@ export class ChatMessagesComponent implements OnInit, OnDestroy, AfterViewInit {
   private readonly chatMessageType = ChatMessageType;
 
   constructor(private mudxmlService: MudxmlService) {
-    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'chat')
+    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().pipe(filter((message) => message.domain === 'chat'))
       .subscribe((message) => this.receiveMessage(message));
-    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'users')
+    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().pipe(filter((message) => message.domain === 'users'))
       .subscribe((message) => this.receiveUsersMessage(message));
-    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.type === 'error')
+    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().pipe(filter((message) => message.type === 'error'))
       .subscribe((message) => this.receiveErrorMessage(message));
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, QueryList, ElementRef, ViewChildren, AfterViewInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { MudxmlService } from '../mudxml.service';
 import { MudMessage } from '../mud-message';

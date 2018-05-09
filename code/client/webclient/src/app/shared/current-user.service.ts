@@ -1,7 +1,9 @@
+
+import {filter} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/filter';
+import { Subscription } from 'rxjs';
+
 
 import { MudMessage } from '../shared/mud-message';
 import { MudxmlService } from '../shared/mudxml.service';
@@ -15,7 +17,7 @@ export class CurrentUserService {
   private readonly mudxmlSubscription: Subscription;
 
   constructor(private mudxmlService: MudxmlService) {
-    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'login')
+    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().pipe(filter((message) => message.domain === 'login'))
       .subscribe(message => this.receiveMessage(message));
   }
 

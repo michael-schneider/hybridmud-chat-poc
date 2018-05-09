@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/filter';
-
+import { Subscription } from 'rxjs';
 
 import { User } from '../src/app/shared/user';
 
