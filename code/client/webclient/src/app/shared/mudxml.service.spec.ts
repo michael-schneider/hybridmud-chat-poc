@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { MudxmlService } from './mudxml.service';
 import { MudMessage } from './mud-message';
 
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { WebsocketService } from './websocket.service';
 import { WebsocketMockService } from '../../../testing/websocket-mock.service';

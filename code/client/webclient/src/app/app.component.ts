@@ -1,8 +1,10 @@
+
+import {filter} from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/filter';
+import { Subscription } from 'rxjs';
+
 
 import { WebsocketService } from './shared/websocket.service';
 import { CurrentUserService } from './shared/current-user.service';
@@ -21,7 +23,7 @@ export class AppComponent implements OnDestroy {
 
   public constructor(private websocketService: WebsocketService, private mudxmlService: MudxmlService,
     private currentUserService: CurrentUserService, private router: Router) {
-    this.mudxmlSubscription = this.mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'init')
+    this.mudxmlSubscription = this.mudxmlService.getMudxmlObservable().pipe(filter((message) => message.domain === 'init'))
       .subscribe((message) => this.restart(message));
 
   }

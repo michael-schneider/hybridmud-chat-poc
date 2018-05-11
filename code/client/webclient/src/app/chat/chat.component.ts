@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate, group } from '@angular/animations';
 
 import { MudxmlService } from '../shared/mudxml.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { User } from '../shared/user';
 import { DirectMessageUserService } from './direct-message-user.service';
 

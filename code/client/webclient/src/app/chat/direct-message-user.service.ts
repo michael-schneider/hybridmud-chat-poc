@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject ,  Observable } from 'rxjs';
 import { User } from '../shared/user';
-import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class DirectMessageUserService {

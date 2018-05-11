@@ -7,8 +7,5 @@
   },
   "dependencies": {
     "gitbook-plugin-prism": "^2.3.0"
-  },
-  "devDependencies": {
-    "@angular/cli": "^1.6.0"
   }
 }

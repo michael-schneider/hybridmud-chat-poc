@@ -1,8 +1,7 @@
 import { Injectable, LOCALE_ID, Inject } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
+import { Subject ,  Observable } from 'rxjs';
+import { WebSocketSubject } from 'rxjs/websocket';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs/Observable';
 
 const CHAT_URL = environment.wsUrl;
 

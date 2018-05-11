@@ -1,7 +1,9 @@
+
+import {filter} from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { trigger, state, style, transition, animate, group } from '@angular/animations';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/filter';
+import { Subscription } from 'rxjs';
+
 
 import { MudxmlService } from '../../shared/mudxml.service';
 import { MudMessage } from '../../shared/mud-message';
@@ -45,7 +47,7 @@ export class UsersOnlineComponent implements OnInit, OnDestroy {
 
   constructor(private mudxmlService: MudxmlService, private currentUserService: CurrentUserService,
     private directMessageUserService: DirectMessageUserService) {
-    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().filter((message) => message.domain === 'users')
+    this.mudxmlSubscription = mudxmlService.getMudxmlObservable().pipe(filter((message) => message.domain === 'users'))
       .subscribe((message) => this.receiveMessage(message));
 
     this.directMessageUserSubscription = directMessageUserService.getDirectMessageUserObservable()
