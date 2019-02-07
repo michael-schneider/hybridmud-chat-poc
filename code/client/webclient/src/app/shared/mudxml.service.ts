@@ -57,6 +57,7 @@ export class MudxmlService implements OnDestroy {
   }
 
   public send(data: string) {
+    console.log('Mudxml Service, sending: ' + data);
     this.websocketService.send(data);
   }
 

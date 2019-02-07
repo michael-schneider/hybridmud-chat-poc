@@ -56,7 +56,7 @@ public class MudWebSocketServer extends WebSocketServer {
     @Override
     public void onMessage(WebSocket conn, String message) {
         LOGGER.log(Level.INFO, MessageFormat.format("Websocket message from {0}: {1}", conn, message));
-        Users.getInstance().getUserByWebSocket(conn).receive(message);
+        Users.getInstance().getUserByWebSocket(conn).receive(message.replaceAll("\"",""));
     }
 
     @Override
